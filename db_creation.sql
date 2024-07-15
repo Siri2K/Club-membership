@@ -1,4 +1,4 @@
--- USE clubs_db;
+-- USE hoc353_1;
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS locations;
@@ -18,7 +18,7 @@ CREATE TABLE locations (
     city VARCHAR(20),
     province VARCHAR(20),
     postal_code VARCHAR(20),
-    phone_number CHAR(13), -- Can use extra digits for country code
+    phone_number VARCHAR(13), -- Can use extra digits for country code
     web_address VARCHAR(30),
     is_head_office BOOLEAN,
     capacity INT(9),
@@ -32,7 +32,7 @@ CREATE TABLE club_members (
     birthdate DATE,
     SSN CHAR(9) NOT NULL UNIQUE,
 	medicare CHAR(12) UNIQUE,
-    phone_number CHAR(13),
+    phone_number VARCHAR(13),
     address VARCHAR(40),
     city VARCHAR(20),
     province VARCHAR(20),
@@ -46,7 +46,7 @@ CREATE TABLE family_members (
     birthdate DATE,
     SSN CHAR(9) NOT NULL UNIQUE,
 	medicare CHAR(12) UNIQUE,
-    phone_number CHAR(13),
+    phone_number VARCHAR(13),
     address VARCHAR(40),
     city VARCHAR(20),
     province VARCHAR(20),
@@ -61,7 +61,7 @@ CREATE TABLE personnels (
     birthdate DATE,
     SSN CHAR(9) NOT NULL UNIQUE,
 	medicare CHAR(12) UNIQUE,
-    phone_number CHAR(13),
+    phone_number VARCHAR(13),
     address VARCHAR(40),
     city VARCHAR(20),
     province VARCHAR(20),
@@ -101,4 +101,14 @@ CREATE TABLE family_enrolled_members(
     PRIMARY KEY(family_SSN, club_member_id, start_date),
     FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id)
+);
+
+CREATE TABLE club_member_enrolled_in_locations(
+    club_member_id INT,
+    location_id INT,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY(club_member_id, location_id, start_date),
+    FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
