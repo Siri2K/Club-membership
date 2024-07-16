@@ -77,7 +77,9 @@ CREATE TABLE personnels_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(personnel_SSN, location_id, start_date),
+    
     FOREIGN KEY(personnel_SSN) REFERENCES personnels(SSN),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
@@ -87,7 +89,9 @@ CREATE TABLE family_enrolled_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(family_SSN, location_id, start_date),
+    
     FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
@@ -98,7 +102,9 @@ CREATE TABLE family_enrolled_members(
     start_date DATE,
     end_date DATE,
     relation VARCHAR(20),
+    
     PRIMARY KEY(family_SSN, club_member_id, start_date),
+
     FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id)
 );
@@ -108,7 +114,9 @@ CREATE TABLE club_member_enrolled_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(club_member_id, location_id, start_date),
+    
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
