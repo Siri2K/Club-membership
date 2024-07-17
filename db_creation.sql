@@ -19,8 +19,8 @@ CREATE TABLE locations (
     province VARCHAR(20),
     postal_code VARCHAR(20),
     phone_number VARCHAR(13), -- Can use extra digits for country code
-    web_address VARCHAR(30),
-    is_head_office BOOLEAN,
+    web_address VARCHAR(75),
+    location_type VARCHAR(50),
     capacity INT(9),
     PRIMARY KEY(location_id)
 );
