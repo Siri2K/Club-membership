@@ -13,7 +13,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE locations (
 	location_id INT NOT NULL auto_increment,
-	location_name VARCHAR(20) NOT NULL,
+	location_name VARCHAR(50) NOT NULL,
     address VARCHAR(40),
     city VARCHAR(20),
     province VARCHAR(20),
