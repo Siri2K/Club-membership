@@ -21,15 +21,16 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE locations (
 	location_id INT NOT NULL auto_increment,
-	location_name VARCHAR(20) NOT NULL,
+	location_name VARCHAR(50) NOT NULL,
     address VARCHAR(40),
     city VARCHAR(20),
     province VARCHAR(20),
     postal_code VARCHAR(20),
     phone_number VARCHAR(13), -- Can use extra digits for country code
-    web_address VARCHAR(30),
-    is_head_office BOOLEAN,
+    web_address VARCHAR(75),
+    location_type VARCHAR(50),
     capacity INT(9),
+    
     PRIMARY KEY(location_id)
 );
 
@@ -45,6 +46,7 @@ CREATE TABLE club_members (
     city VARCHAR(20),
     province VARCHAR(20),
     postal_code CHAR(6),
+    
     PRIMARY KEY(club_member_id)
 );
 
@@ -60,6 +62,7 @@ CREATE TABLE family_members (
     province VARCHAR(20),
     postal_code CHAR(6),
     email_address VARCHAR(40),
+    
     PRIMARY KEY(SSN)
 );
 
@@ -77,6 +80,7 @@ CREATE TABLE personnels (
     email_address VARCHAR(40),
     personnel_role VARCHAR(40),
     mandate VARCHAR(20),
+    
     PRIMARY KEY(SSN)
 );
 
@@ -85,7 +89,9 @@ CREATE TABLE personnels_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(personnel_SSN, location_id, start_date),
+    
     FOREIGN KEY(personnel_SSN) REFERENCES personnels(SSN),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
@@ -95,7 +101,9 @@ CREATE TABLE family_enrolled_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(family_SSN, location_id, start_date),
+    
     FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
@@ -106,7 +114,9 @@ CREATE TABLE family_enrolled_members(
     start_date DATE,
     end_date DATE,
     relation VARCHAR(20),
+    
     PRIMARY KEY(family_SSN, club_member_id, start_date),
+
     FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id)
 );
@@ -116,7 +126,9 @@ CREATE TABLE club_member_enrolled_in_locations(
     location_id INT,
     start_date DATE,
     end_date DATE,
+    
     PRIMARY KEY(club_member_id, location_id, start_date),
+    
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
 );
