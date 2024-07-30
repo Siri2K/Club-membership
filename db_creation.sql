@@ -1,4 +1,5 @@
--- USE hoc353_1;
+USE hoc353_1;
+-- use clubs_db;
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS locations;
@@ -9,6 +10,13 @@ DROP TABLE IF EXISTS personnels_in_locations;
 DROP TABLE IF EXISTS family_enrolled_in_locations;
 DROP TABLE IF EXISTS family_enrolled_members;
 DROP TABLE IF EXISTS club_member_enrolled_in_locations;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS goalkeepers;
+DROP TABLE IF EXISTS forwards;
+DROP TABLE IF EXISTS defenders;
+DROP TABLE IF EXISTS midfielders;
+DROP TABLE IF EXISTS email_logs;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE locations (
@@ -111,4 +119,63 @@ CREATE TABLE club_member_enrolled_in_locations(
     PRIMARY KEY(club_member_id, location_id, start_date),
     FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+
+CREATE TABLE sessions(
+    team_1_id INT,
+    team_2_id INT,
+    session_time DATETIME,
+    address VARCHAR(100),
+    team_1_score INT,
+    team_2_score INT,
+    session_type VARCHAR(50),
+    PRIMARY KEY(team_1_id, team_2_id, session_time)
+);
+
+CREATE TABLE teams(
+	team_id INT auto_increment,
+    team_name VARCHAR(100),
+    head_coach_id INT,
+    gender VARCHAR(20),
+    PRIMARY KEY(team_id)
+);
+
+CREATE TABLE goalkeepers(
+	team_id INT,
+    goalkeeper_id INT,
+    PRIMARY KEY(team_id, goalkeeper_id),
+    FOREIGN KEY(team_id) REFERENCES teams(team_id),
+    FOREIGN KEY(goalkeeper_id) REFERENCES club_members(club_member_id)
+);
+
+CREATE TABLE defenders(
+	team_id INT,
+    defender_id INT,
+    PRIMARY KEY(team_id, defender_id),
+    FOREIGN KEY(team_id) REFERENCES teams(team_id),
+    FOREIGN KEY(defender_id) REFERENCES club_members(club_member_id)
+);
+
+CREATE TABLE midfielders(
+	team_id INT,
+    midfielder_id INT,
+    PRIMARY KEY(team_id, midfielder_id),
+    FOREIGN KEY(team_id) REFERENCES teams(team_id),
+    FOREIGN KEY(midfielder_id) REFERENCES club_members(club_member_id)
+);
+
+CREATE TABLE forwards(
+	team_id INT,
+    forward_id INT,
+    PRIMARY KEY(team_id, forward_id),
+    FOREIGN KEY(team_id) REFERENCES teams(team_id),
+    FOREIGN KEY(forward_id) REFERENCES club_members(club_member_id)
+);
+
+CREATE TABLE email_logs(
+	email_date DATE,
+    sender VARCHAR(100),
+    receiver VARCHAR(100),
+    email_subject VARCHAR(100),
+    body VARCHAR(100)
 );
