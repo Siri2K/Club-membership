@@ -24,47 +24,52 @@ INSERT INTO club_members (first_name, last_name, birthdate, SSN, medicare, phone
     ('Marianne', 'Rosenbaum', '2015-07-15', '403023999', '147563065', '+1 7459836994', '4916 Watsica Mews', 'South Nona', 'Mississippi', '088012'),
     ('Manuel', 'Armstrong', '2017-07-15', '821708856', '933440329', '+1 4370295107', '185 Jonathan Meadows', 'Catonsville', 'Kansas', '346459'),
     ('Alicia', 'O\'Connell', '2018-07-15', '268910184', '598742068', '+1 8713404312', '49359 Gene Extensions', 'Miramar', 'North Carolina', '410135'),
-    ('Ruth', 'Treutel', '2019-07-15', '507130047', '668407810', '+1 5780823315', '421 Delphia Mill', 'Denisboro', 'Hawaii', '324317');
+    ('Ruth', 'Treutel', '2019-07-15', '507130047', '668407810', '+1 5780823315', '421 Delphia Mill', 'Denisboro', 'Hawaii', '324317'),
+    ('John', 'Doe', '2017-05-14', '123456789', '111111111', '+1 5551111111', '123 Maple Street', 'Citytown', 'Province', 'A1B2C3'),
+    ('Jane', 'Smith', '2018-06-15', '987654321', '222222222', '+1 5552222222', '456 Oak Avenue', 'Villagetown', 'Province', 'D4E5F6'),
+    ('Emily', 'Johnson', '2016-07-16', '555444333', '333333333', '+1 5553333333', '789 Pine Road', 'Hamlettown', 'Province', 'G7H8I9'),
+    ('Oliver', 'Jones', '2017-04-10', '555555555', '444444444', '+1 5554444444', '987 Elm Street', 'Citytown', 'Province', 'B2C3D4'),
+    ('Sophia', 'Williams', '2018-09-12', '666666666', '555555555', '+1 5555555555', '654 Maple Avenue', 'Villagetown', 'Province', 'E5F6G7'),
+    ('Liam', 'Brown', '2016-08-22', '777777777', '666666666', '+1 5556666666', '321 Pine Road', 'Hamlettown', 'Province', 'H8I9J0');
 
 -- Family members table
 INSERT INTO family_members (first_name, last_name, birthdate, SSN, medicare, phone_number, address, city, province, postal_code, email_address) VALUES
-    ('Faith', 'Lubowitz', '2024-07-15', '106201399', '477822368285', '+1 3331073230', 'G]>aof7sB%', 'Elmirafort', 'Wisconsin', '928492', 'Faith.Lubowitz@yahoo.com'),
-    ('Joshua', 'Murphy', '2024-07-15', '985496281', '521438817445', '+1 0142635201', 'SgkX$?I>`q', 'Lake Leathaland', 'Connecticut', '722179', 'Joshua_Murphy@gmail.com'),
-    ('Irving', 'Spinka', '2024-07-15', '528237260', '489934072030', '+1 1911558198', '*H_<GpQf}d', 'Bartellside', 'Pennsylvania', '837734', 'Irving.Spinka@gmail.com'),
-    ('Sergio', 'Emmerich', '2024-07-15', '163472843', '327070516669', '+1 2634669949', '-W7DQzTu8&', 'Pedroland', 'Alabama', '408212', 'Sergio90@hotmail.com'),
-    ('Manuel', 'Lowe', '2024-07-15', '599284139', '724039072321', '+1 5640432401', ')7KzRL<kLV', 'Port Bellechester', 'Oklahoma', '363067', 'Manuel.Lowe28@yahoo.com'),
-    ('Ada', 'Romaguera', '2024-07-15', '923930728', '507070041331', '+1 4257607116', '-Nwotp82X/', 'Port Lorineton', 'Kentucky', '955215', 'Ada_Romaguera@hotmail.com'),
-    ('Pedro', 'Jenkins', '2024-07-15', '448645522', '394605998542', '+1 5955062647', '?S]_%ne?Tm', 'West Trudieborough', 'Virginia', '883548', 'Pedro74@gmail.com'),
-    ('Sophia', 'Barton', '2024-07-15', '808311919', '214528883015', '+1 4560950365', '!\'*<cY:.g)', 'Rathborough', 'Idaho', '820469', 'Sophia_Barton@hotmail.com'),
-    ('Susie', 'Windler', '2024-07-15', '103354394', '672173108332', '+1 7171614682', '$S{ic0lvv&', 'Janickfield', 'Kentucky', '443654', 'Susie.Windler@yahoo.com'),
-    ('Erin', 'Daugherty', '2024-07-15', '203851803', '456323792334', '+1 7675422816', 'C8!0S-r%bu', 'Jerdestad', 'California', '511306', 'Erin18@yahoo.com');
+	('Faith', 'Lubowitz', '2024-07-15', '106201399', '477822368285', '+1 3331073230', '123 Main St', 'Elmirafort', 'Wisconsin', '928492', 'Faith.Lubowitz@yahoo.com'),
+	('Joshua', 'Murphy', '2024-07-15', '985496281', '521438817445', '+1 0142635201', '456 Elm St', 'Lake Leathaland', 'Connecticut', '722179', 'Joshua_Murphy@gmail.com'),
+	('Irving', 'Spinka', '2024-07-15', '528237260', '489934072030', '+1 1911558198', '789 Oak St', 'Bartellside', 'Pennsylvania', '837734', 'Irving.Spinka@gmail.com'),
+	('Sergio', 'Emmerich', '2024-07-15', '163472843', '327070516669', '+1 2634669949', '101 Pine St', 'Pedroland', 'Alabama', '408212', 'Sergio90@hotmail.com'),
+	('Manuel', 'Lowe', '2024-07-15', '599284139', '724039072321', '+1 5640432401', '202 Birch St', 'Port Bellechester', 'Oklahoma', '363067', 'Manuel.Lowe28@yahoo.com'),
+	('Ada', 'Romaguera', '2024-07-15', '923930728', '507070041331', '+1 4257607116', '303 Cedar St', 'Port Lorineton', 'Kentucky', '955215', 'Ada_Romaguera@hotmail.com'),
+	('Pedro', 'Jenkins', '2024-07-15', '448645522', '394605998542', '+1 5955062647', '404 Spruce St', 'West Trudieborough', 'Virginia', '883548', 'Pedro74@gmail.com'),
+	('Sophia', 'Barton', '2024-07-15', '808311919', '214528883015', '+1 4560950365', '505 Maple St', 'Rathborough', 'Idaho', '820469', 'Sophia_Barton@hotmail.com'),
+	('Susie', 'Windler', '2024-07-15', '103354394', '672173108332', '+1 7171614682', '606 Ash St', 'Janickfield', 'Kentucky', '443654', 'Susie.Windler@yahoo.com'),
+	('Erin', 'Daugherty', '2024-07-15', '203851803', '456323792334', '+1 7675422816', '707 Redwood St', 'Jerdestad', 'California', '511306', 'Erin18@yahoo.com');
 
 -- Personnels table
 INSERT INTO personnels (first_name, last_name, birthdate, SSN, medicare, phone_number, address, city, province, postal_code, email_address, personnel_role, mandate) VALUES
     ('Myra', 'Hoeger', '1996-12-05', '350857000', '63407124', '+1 4169056562', '870 Garnet Junctions', 'Bauchville', 'ON', '693986', 'Myra91@gmail.com', 'Trainer', 'Salaried'),
-    ('Sherman', 'Schimmel', '2001-05-06', '724579000', '51404101', '+1 6756027910', '5032 Eden Islands', 'Brockton', 'ON', '132319', 'Sherman.Schimmel@yahoo.com', 'Administrator', 'Salaried'),
+    ('Sherman', 'Schimmel', '2001-05-06', '724579000', '51404101', '+1 6756027910', '5032 Eden Islands', 'Brockton', 'ON', '132319', 'Sherman.Schimmel@yahoo.com', 'General Manager', 'Salaried'),
     ('Lucy', 'Brakus', '2000-03-17', '142767000', '53635616', '+1 8309096224', '107 Emilio Land', 'South Kailee', 'ON', '138296', 'Lucy_Brakus39@hotmail.com', 'Trainer', 'Salaried'),
-    ('Aaron', 'Harvey', '2000-03-25', '320150000', '05056278', '+1 7185196680', '4085 Kuphal Greens', 'Esmeraldahaven', 'ON', '471310', 'Aaron.Harvey@hotmail.com', 'Administrator', 'Salaried'),
+    ('Aaron', 'Harvey', '2000-03-25', '320150000', '05056278', '+1 7185196680', '4085 Kuphal Greens', 'Esmeraldahaven', 'ON', '471310', 'Aaron.Harvey@hotmail.com', 'General Manager', 'Salaried'),
     ('Nadine', 'Gislason', '2005-07-23', '324203000', '53958091', '+1 7315826391', '95463 Jenkins Coves', 'West Eusebio', 'ON', '673745', 'Nadine.Gislason@yahoo.com', 'Trainer', 'Salaried'),
-    ('Bonnie', 'Parisian', '2004-09-15', '944799000', '25021098', '+1 1753528388', '3986 Corkery Keys', 'Fort Abigale', 'ON', '918165', 'Bonnie_Parisian3@yahoo.com', 'Administrator', 'Salaried'),
+    ('Bonnie', 'Parisian', '2004-09-15', '944799000', '25021098', '+1 1753528388', '3986 Corkery Keys', 'Fort Abigale', 'ON', '918165', 'Bonnie_Parisian3@yahoo.com', 'General Manager', 'Salaried'),
     ('Nettie', 'Anderson', '2005-06-11', '264300000', '16954750', '+1 3708554543', '539 Cecil Course', 'New Titoton', 'ON', '901656', 'Nettie.Anderson@gmail.com', 'Trainer', 'Volunteer'),
-    ('Everett', 'Ryan', '2006-05-19', '223830000', '13844426', '+1 3944889177', '11027 Bauch Mills', 'Gerardoboro', 'ON', '526589', 'Everett.Ryan@hotmail.com', 'Administrator', 'Salaried'),
+    ('Everett', 'Ryan', '2006-05-19', '223830000', '13844426', '+1 3944889177', '11027 Bauch Mills', 'Gerardoboro', 'ON', '526589', 'Everett.Ryan@hotmail.com', 'General Manager', 'Salaried'),
     ('Karla', 'Mohr-Bode', '1998-08-10', '868725000', '15190479', '+1 7649246672', '99529 Yundt Pine', 'Moline', 'ON', '949866', 'Karla_Mohr-Bode@hotmail.com', 'Trainer', 'Salaried'),
     ('Dallas', 'Orn', '2000-12-07', '389433000', '88213237', '+1 6980761271', '28678 Izaiah Ways', 'Fort Emelia', 'ON', '230329', 'Dallas42@hotmail.com', 'Trainer', 'Salaried');
 
 -- Personnels in locations table
 INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end_date) VALUES
     ('350857000', 1, '2024-05-05', null),
-    ('724579000', 1, '2022-03-03', '2024-02-20'),
+    ('724579000', 1, '2022-03-03', '2024-02-20'), -- Sherman
     ('142767000', 2, '2024-01-30', '2024-04-24'),
-    ('320150000', 2, '2023-04-25', '2024-2-20'),
+    ('320150000', 2, '2023-04-25', '2024-02-20'), -- Aaron
     ('324203000', 3, '2022-07-17', null),
-    ('944799000', 3, '2024-05-04', null),
+    ('944799000', 3, '2024-05-04', null), -- Bonnie
     ('264300000', 3, '2022-04-03', '2024-03-28'),
-    ('223830000', 4, '2021-06-27', '2024-03-20'),
+    ('223830000', 4, '2021-06-27', '2024-03-20'), -- Ryan
     ('868725000', 4, '2016-01-12', null),
-    ('389433000', 4, '2015-10-19', null),
-	('223830000', 2, '2024-03-21', null);
+    ('389433000', 4, '2015-10-19', null);
 
 -- Family enrolled in locations table
 INSERT INTO family_enrolled_in_locations (family_SSN, location_id, start_date, end_date) VALUES
@@ -103,4 +108,64 @@ INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, star
     (7, 4, '2024-12-16', null),
     (8, 4, '2023-03-26', '2024-05-14'),
     (9, 4, '2022-10-03', '2024-05-11'),
-    (10, 5, '2023-11-16', null);
+    (10, 5, '2023-11-16', null),
+    (11, 1, '2024-01-01', null), -- John Doe enrolled in location 1
+    (11, 2, '2024-02-01', null), -- John Doe enrolled in location 2
+    (11, 3, '2024-03-01', null), -- John Doe enrolled in location 3
+    (11, 4, '2024-04-01', null), -- John Doe enrolled in location 4
+    (11, 5, '2024-05-01', null), -- John Doe enrolled in location 5
+    (12, 6, '2023-01-01', '2024-01-01'), -- Jane Smith enrolled in location 6 for 1 year
+    (12, 7, '2024-01-02', null), -- Jane Smith enrolled in location 7
+    (12, 8, '2024-02-02', null), -- Jane Smith enrolled in location 8
+    (12, 9, '2024-03-02', null), -- Jane Smith enrolled in location 9
+    (12, 10, '2024-04-02', null), -- Jane Smith enrolled in location 10
+    (13, 1, '2023-04-02', null), -- Emily Johnson enrolled in location 1
+    (13, 2, '2023-05-02', null), -- Emily Johnson enrolled in location 2
+    (13, 3, '2023-06-02', null), -- Emily Johnson enrolled in location 3
+    (13, 4, '2023-07-02', null), -- Emily Johnson enrolled in location 4
+    (13, 5, '2023-08-02', null); -- Emily Johnson enrolled in location 5
+
+-- Teams table
+INSERT INTO teams (team_name, head_coach_id, gender) VALUES
+    ('Minnesota Stars', '350857000', 'Mixed'),
+    ('Elite Warriors', '724579000', 'Mixed'),
+    ('Warrior Legends', '868725000', 'Mixed');
+
+-- Sessions table
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (1, 2, '2024-04-09 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 2, 'Game'),
+    (2, 1, '2024-04-09 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (1, 3, '2024-02-10 10:00:00', '6855 Little Port, South Miles, Minnesota', 2, 1, 'Game'),
+    (3, 2, '2024-02-15 15:00:00', '6855 Little Port, South Miles, Minnesota', 1, 3, 'Training'),
+    (3, 1, '2024-02-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 0, 2, 'Game'),
+    (2, 3, '2024-03-01 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (1, 3, '2024-03-05 10:00:00', '6855 Little Port, South Miles, Minnesota', 1, 2, 'Game'),
+    (2, 3, '2024-03-10 15:00:00', '6855 Little Port, South Miles, Minnesota', 2, 2, 'Game'),
+    (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
+
+-- Goalkeepers
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+    (1, 1), -- Marta Fay as Goalkeeper for team 1
+    (2, 3), -- Megan Lesch as Goalkeeper for team 2
+    (3, 11); -- Oliver Jones as Goalkeeper for team 3
+
+-- Defenders
+INSERT INTO defenders (team_id, defender_id) VALUES
+    (1, 2), -- Casey Fay as Defender for team 1
+    (2, 4), -- Moses Hilpert as Defender for team 2
+    (3, 12), -- Sophia Williams as Defender for team 3
+    (1, 1); -- Marta Fay as Goalkeeper for team 1
+
+-- Midfielders
+INSERT INTO midfielders (team_id, midfielder_id) VALUES
+    (1, 5), -- Sara Mills as Midfielder for team 1
+    (2, 6), -- Harry Sanford as Midfielder for team 2
+    (3, 13), -- Liam Brown as Midfielder for team 3
+	(1, 1); -- Marta Fay as Goalkeeper for team 1
+
+-- Forwards
+INSERT INTO forwards (team_id, forward_id) VALUES
+    (1, 7), -- Marianne Rosenbaum as Forward for team 1
+    (2, 8), -- Manuel Armstrong as Forward for team 2
+    (3, 8), -- Manuel Armstrong as Forward for team 3 (shared player from another team)
+	(1, 1); -- Marta Fay as Goalkeeper for team 1
