@@ -63,11 +63,11 @@ INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end
     ('350857000', 1, '2024-05-05', null),
     ('724579000', 1, '2024-05-05', null),
     ('142767000', 2, '2024-01-30', '2024-04-24'),
-    ('320150000', 2, '2023-04-25', '2024-2-20'),
+    ('320150000', 2, '2023-04-25', '2024-02-20'), -- Aaron
     ('324203000', 3, '2022-07-17', null),
-    ('944799000', 3, '2024-05-04', null),
+    ('944799000', 3, '2024-05-04', null), -- Bonnie
     ('264300000', 3, '2022-04-03', '2024-03-28'),
-    ('223830000', 4, '2021-06-27', '2024-03-20'),
+    ('223830000', 4, '2021-06-27', '2024-03-20'), -- Ryan
     ('868725000', 4, '2016-01-12', null),
     ('389433000', 4, '2015-10-19', null),
 	  ('344799000', 1, '2020-03-21', null),
@@ -139,3 +139,64 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (1, 2, '2024-01-01 18:00:00', '444 West', 5, 7, 'Game'),
     (1, 2, '2024-01-12 18:20:00', '444 West', 5, 5, 'Training'),
     (1, 2, '2024-02-10 18:00:00', '444 West', 5, 5, 'Game');
+    (10, 5, '2023-11-16', null),
+    (11, 1, '2024-01-01', null), -- John Doe enrolled in location 1
+    (11, 2, '2024-02-01', null), -- John Doe enrolled in location 2
+    (11, 3, '2024-03-01', null), -- John Doe enrolled in location 3
+    (11, 4, '2024-04-01', null), -- John Doe enrolled in location 4
+    (11, 5, '2024-05-01', null), -- John Doe enrolled in location 5
+    (12, 6, '2023-01-01', '2024-01-01'), -- Jane Smith enrolled in location 6 for 1 year
+    (12, 7, '2024-01-02', null), -- Jane Smith enrolled in location 7
+    (12, 8, '2024-02-02', null), -- Jane Smith enrolled in location 8
+    (12, 9, '2024-03-02', null), -- Jane Smith enrolled in location 9
+    (12, 10, '2024-04-02', null), -- Jane Smith enrolled in location 10
+    (13, 1, '2023-04-02', null), -- Emily Johnson enrolled in location 1
+    (13, 2, '2023-05-02', null), -- Emily Johnson enrolled in location 2
+    (13, 3, '2023-06-02', null), -- Emily Johnson enrolled in location 3
+    (13, 4, '2023-07-02', null), -- Emily Johnson enrolled in location 4
+    (13, 5, '2023-08-02', null); -- Emily Johnson enrolled in location 5
+
+-- Teams table
+INSERT INTO teams (team_name, head_coach_id, gender) VALUES
+    ('Minnesota Stars', '350857000', 'Mixed'),
+    ('Elite Warriors', '724579000', 'Mixed'),
+    ('Warrior Legends', '868725000', 'Mixed');
+
+-- Sessions table
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (1, 2, '2024-04-09 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 2, 'Game'),
+    (2, 1, '2024-04-09 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (1, 3, '2024-02-10 10:00:00', '6855 Little Port, South Miles, Minnesota', 2, 1, 'Game'),
+    (3, 2, '2024-02-15 15:00:00', '6855 Little Port, South Miles, Minnesota', 1, 3, 'Training'),
+    (3, 1, '2024-02-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 0, 2, 'Game'),
+    (2, 3, '2024-03-01 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (1, 3, '2024-03-05 10:00:00', '6855 Little Port, South Miles, Minnesota', 1, 2, 'Game'),
+    (2, 3, '2024-03-10 15:00:00', '6855 Little Port, South Miles, Minnesota', 2, 2, 'Game'),
+    (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
+
+-- Goalkeepers
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+    (1, 1), -- Marta Fay as Goalkeeper for team 1
+    (2, 3), -- Megan Lesch as Goalkeeper for team 2
+    (3, 11); -- Oliver Jones as Goalkeeper for team 3
+
+-- Defenders
+INSERT INTO defenders (team_id, defender_id) VALUES
+    (1, 2), -- Casey Fay as Defender for team 1
+    (2, 4), -- Moses Hilpert as Defender for team 2
+    (3, 12), -- Sophia Williams as Defender for team 3
+    (1, 1); -- Marta Fay as Goalkeeper for team 1
+
+-- Midfielders
+INSERT INTO midfielders (team_id, midfielder_id) VALUES
+    (1, 5), -- Sara Mills as Midfielder for team 1
+    (2, 6), -- Harry Sanford as Midfielder for team 2
+    (3, 13), -- Liam Brown as Midfielder for team 3
+	  (1, 1); -- Marta Fay as Goalkeeper for team 1
+
+-- Forwards
+INSERT INTO forwards (team_id, forward_id) VALUES
+    (1, 7), -- Marianne Rosenbaum as Forward for team 1
+    (2, 8), -- Manuel Armstrong as Forward for team 2
+    (3, 8), -- Manuel Armstrong as Forward for team 3 (shared player from another team)
+	  (1, 1); -- Marta Fay as Goalkeeper for team 1
