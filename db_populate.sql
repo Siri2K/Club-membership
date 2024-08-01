@@ -141,10 +141,17 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (1, 2, '2024-02-10 18:00:00', '444 West', 5, 5, 'Game');
 
 -- Teams table
-INSERT INTO teams (team_name, head_coach_id, gender) VALUES
-    ('Minnesota Stars', '350857000', 'Mixed'),
-    ('Elite Warriors', '724579000', 'Mixed'),
-    ('Warrior Legends', '868725000', 'Mixed');
+INSERT INTO teams (location_id, team_name, head_coach_id, gender) VALUES
+    (4, 'Minnesota Stars', '350857000', 'Female'),
+    (2, 'Elite Warriors', '724579000', 'Male'),
+    (4, 'Warrior Legends', '868725000', 'Female');
+
+-- Goalkeepers
+
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+    -- (1, 1), -- Marta Fay as Goalkeeper for team 1
+    -- (2, 3), -- Megan Lesch as Goalkeeper for team 2
+    (3, 9); -- Nettie Anderson as Goalkeeper for team 3
 
 -- Sessions table
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
@@ -158,30 +165,24 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (2, 3, '2024-03-10 15:00:00', '6855 Little Port, South Miles, Minnesota', 2, 2, 'Game'),
     (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
 
--- Goalkeepers
-
-INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
-    -- (1, 1), -- Marta Fay as Goalkeeper for team 1
-    -- (2, 3), -- Megan Lesch as Goalkeeper for team 2
-    (3, 10); -- Nettie Anderson as Goalkeeper for team 3
 
 -- Defenders
 INSERT INTO defenders (team_id, defender_id) VALUES
     (1, 2), -- Casey Fay as Defender for team 1
     (2, 4), -- Moses Hilpert as Defender for team 2
-    (3, 10), -- Nettie Anderson as Defender for team 3
+    (3, 9), -- Nettie Anderson as Defender for team 3
     (1, 1); -- Marta Fay as Goalkeeper for team 1
 
 -- Midfielders
 INSERT INTO midfielders (team_id, midfielder_id) VALUES
     (1, 5), -- Sara Mills as Midfielder for team 1
     (2, 6), -- Harry Sanford as Midfielder for team 2
-    (3, 10), -- Nettie Anderson as Midfielder for team 3
+    (3, 9), -- Nettie Anderson as Midfielder for team 3
 	  (1, 1); -- Marta Fay as Goalkeeper for team 1
 
 -- Forwards
 INSERT INTO forwards (team_id, forward_id) VALUES
     (1, 7), -- Marianne Rosenbaum as Forward for team 1
     (2, 8), -- Manuel Armstrong as Forward for team 2
-    (3, 8), -- Manuel Armstrong as Forward for team 3 (shared player from another team)
+    (3, 9), -- Manuel Armstrong as Forward for team 3 (shared player from another team)
 	  (1, 1); -- Marta Fay as Goalkeeper for team 1

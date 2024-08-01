@@ -148,9 +148,9 @@ CREATE TABLE sessions(
 
 CREATE TABLE teams(
 	team_id INT auto_increment,
-    location_id INT,
+    location_id INT NOT NULL,
     team_name VARCHAR(100),
-    head_coach_id INT,
+    head_coach_id INT NOT NULL,
     gender VARCHAR(20),
     PRIMARY KEY(team_id)
 );
@@ -266,30 +266,237 @@ BEGIN
 	END IF;
 END;
 $$
-/*
--- Checking that each club member is between 4 and 10 at registration
-CREATE TRIGGER check_club_member_eligibility BEFORE INSERT ON club_member_enrolled_in_locations
+
+-- To check club member age is in allowable range
+DELIMITER //
+CREATE TRIGGER check_club_member_age
+BEFORE INSERT ON club_members
 FOR EACH ROW
 BEGIN
-	IF (SELECT COUNT(*) FROM club_members c
-    WHERE c.club_member_id = NEW.club_member_id
-    AND (c.birthdate >= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)) OR c.birthdate <= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)))) > 0 THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT = 'ERROR! Club member is not of age to register!';
-	END IF;
+    DECLARE age INT;
+    SET age = TIMESTAMPDIFF(YEAR, NEW.birthdate, CURDATE());
+
+    IF age < 4 OR age > 10 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Club members must be between 4 and 10 years old at the time of registration.';
+    END IF;
+END //
+
+-- Checking for ineligible assignment to two matches within 3 hours on the same day
+DELIMITER //
+CREATE TRIGGER check_team_formation_conflict
+BEFORE INSERT ON sessions
+FOR EACH ROW
+BEGIN
+    DECLARE conflict_count INT;
+    SELECT COUNT(*) INTO conflict_count
+    FROM sessions s
+    WHERE (s.team_1_id = NEW.team_1_id OR s.team_2_id = NEW.team_1_id OR
+           s.team_1_id = NEW.team_2_id OR s.team_2_id = NEW.team_2_id)
+    AND DATE(s.session_time) = DATE(NEW.session_time)
+    AND ABS(TIMESTAMPDIFF(HOUR, s.session_time, NEW.session_time)) < 3;
+    IF conflict_count > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A player cannot be assigned to two team formations within 3 hours on the same day.';
+    END IF;
+END //
+DELIMITER ;
+
+-- Checking to make sure each player is in location of team
+-- Goalkeepers
+DELIMITER //
+CREATE TRIGGER check_goalkeepers_location
+BEFORE INSERT ON goalkeepers
+FOR EACH ROW
+BEGIN
+    IF (SELECT t.location_id FROM teams t 
+    WHERE t.team_id = NEW.team_id) <> 
+    (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
+    INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
+    WHERE c.club_member_id = NEW.goalkeeper_id) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
+    END IF;
+END //
+
+-- Defenders
+DELIMITER //
+CREATE TRIGGER check_defenders_location
+BEFORE INSERT ON defenders
+FOR EACH ROW
+BEGIN
+    IF (SELECT t.location_id FROM teams t 
+    WHERE t.team_id = NEW.team_id) <> 
+    (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
+    INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
+    WHERE c.club_member_id = NEW.defender_id) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
+    END IF;
+END //
+
+-- Midfielders
+DELIMITER //
+CREATE TRIGGER check_midfielders_location
+BEFORE INSERT ON midfielders
+FOR EACH ROW
+BEGIN
+    IF (SELECT t.location_id FROM teams t 
+    WHERE t.team_id = NEW.team_id) <> 
+    (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
+    INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
+    WHERE c.club_member_id = NEW.midfielder_id) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
+    END IF;
+END //
+
+-- Forwards
+DELIMITER //
+CREATE TRIGGER check_forwards_location
+BEFORE INSERT ON forwards
+FOR EACH ROW
+BEGIN
+    IF (SELECT t.location_id FROM teams t 
+    WHERE t.team_id = NEW.team_id) <> 
+    (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
+    INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
+    WHERE c.club_member_id = NEW.forward_id) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
+    END IF;
+END //
+
+-- Trigger to check team has at least one goalkeeper
+DELIMITER //
+CREATE TRIGGER check_goalie_count_teams
+BEFORE INSERT ON sessions
+FOR EACH ROW
+BEGIN
+    IF (SELECT COUNT(*) FROM goalkeepers g 
+    WHERE g.team_id = NEW.team_1_id) = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Team 1 in session must have at least 1 goalkeeper!';
+    END IF;
+    
+    IF (SELECT COUNT(*) FROM goalkeepers g 
+    WHERE g.team_id = NEW.team_2_id) = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Team 2 in session must have at least 1 goalkeeper!';
+    END IF;
+    
+END //
+
+-- Triggers to disallow members trying to join team of the opposite gender
+
+DELIMITER //
+CREATE TRIGGER check_member_gender
+BEFORE INSERT ON goalkeepers
+FOR EACH ROW
+BEGIN
+    DECLARE member_gender VARCHAR(20);
+    DECLARE team_gender VARCHAR(20);
+
+    -- Retrieve the gender of the club member
+    SELECT gender INTO member_gender
+    FROM club_members
+    WHERE club_member_id = NEW.goalkeeper_id;
+
+    -- Retrieve the gender of the team
+    SELECT gender INTO team_gender
+    FROM teams
+    WHERE team_id = NEW.team_id;
+
+    -- Check if the member's gender matches the team's gender
+    IF member_gender <> team_gender THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Gender mismatch: Club member and team genders must match.';
+    END IF;
 END;
-$$
+//
+
+CREATE TRIGGER check_member_gender_defender
+BEFORE INSERT ON defenders
+FOR EACH ROW
+BEGIN
+    DECLARE member_gender VARCHAR(20);
+    DECLARE team_gender VARCHAR(20);
+
+    -- Retrieve the gender of the club member
+    SELECT gender INTO member_gender
+    FROM club_members
+    WHERE club_member_id = NEW.defender_id;
+
+    -- Retrieve the gender of the team
+    SELECT gender INTO team_gender
+    FROM teams
+    WHERE team_id = NEW.team_id;
+
+    -- Check if the member's gender matches the team's gender
+    IF member_gender <> team_gender THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Gender mismatch: Club member and team genders must match.';
+    END IF;
+END;
+//
+
+CREATE TRIGGER check_member_gender_midfielder
+BEFORE INSERT ON midfielders
+FOR EACH ROW
+BEGIN
+    DECLARE member_gender VARCHAR(20);
+    DECLARE team_gender VARCHAR(20);
+
+    -- Retrieve the gender of the club member
+    SELECT gender INTO member_gender
+    FROM club_members
+    WHERE club_member_id = NEW.midfielder_id;
+
+    -- Retrieve the gender of the team
+    SELECT gender INTO team_gender
+    FROM teams
+    WHERE team_id = NEW.team_id;
+
+    -- Check if the member's gender matches the team's gender
+    IF member_gender <> team_gender THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Gender mismatch: Club member and team genders must match.';
+    END IF;
+END;
+//
+
+CREATE TRIGGER check_member_gender_forward
+BEFORE INSERT ON forwards
+FOR EACH ROW
+BEGIN
+    DECLARE member_gender VARCHAR(20);
+    DECLARE team_gender VARCHAR(20);
+
+    -- Retrieve the gender of the club member
+    SELECT gender INTO member_gender
+    FROM club_members
+    WHERE club_member_id = NEW.forward_id;
+
+    -- Retrieve the gender of the team
+    SELECT gender INTO team_gender
+    FROM teams
+    WHERE team_id = NEW.team_id;
+
+    -- Check if the member's gender matches the team's gender
+    IF member_gender <> team_gender THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Gender mismatch: Club member and team genders must match.';
+    END IF;
+END;
+//
 
 
-CREATE TABLE club_member_enrolled_in_locations(
-    club_member_id INT,
-    location_id INT,
-    start_date DATE,
-    end_date DATE,
-    
-    PRIMARY KEY(club_member_id, location_id, start_date),
-    
-    FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
-    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+/*
+CREATE TABLE goalkeepers(
+	team_id INT,
+    goalkeeper_id INT,
+    PRIMARY KEY(team_id, goalkeeper_id),
+    FOREIGN KEY(team_id) REFERENCES teams(team_id),
+    FOREIGN KEY(goalkeeper_id) REFERENCES club_members(club_member_id)
 );
 */
