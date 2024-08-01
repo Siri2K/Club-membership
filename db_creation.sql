@@ -264,21 +264,21 @@ BEGIN
 	END IF;
 END;
 $$
-
+/*
 -- Checking that each club member is between 4 and 10 at registration
 CREATE TRIGGER check_club_member_eligibility BEFORE INSERT ON club_member_enrolled_in_locations
 FOR EACH ROW
 BEGIN
 	IF (SELECT COUNT(*) FROM club_members c
     WHERE c.club_member_id = NEW.club_member_id
-    AND (c.birthdate >= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)) OR c.birthdate <= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)))) THEN
+    AND (c.birthdate >= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)) OR c.birthdate <= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)))) > 0 THEN
 		SIGNAL SQLSTATE '45000'
 		SET MESSAGE_TEXT = 'ERROR! Club member is not of age to register!';
 	END IF;
 END;
 $$
 
-/*
+
 CREATE TABLE club_member_enrolled_in_locations(
     club_member_id INT,
     location_id INT,
