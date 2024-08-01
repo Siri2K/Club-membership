@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS forwards;
 DROP TABLE IF EXISTS defenders;
 DROP TABLE IF EXISTS midfielders;
 DROP TABLE IF EXISTS email_logs;
+DROP TABLE IF EXISTS secondary_family_members;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE locations (
@@ -28,7 +29,7 @@ CREATE TABLE locations (
     postal_code VARCHAR(20),
     phone_number VARCHAR(13), -- Can use extra digits for country code
     web_address VARCHAR(75),
-    location_type VARCHAR(50),
+    location_type VARCHAR(50) CHECK (location_type IN ("Head", "Branch")),
     capacity INT(9),
     
     PRIMARY KEY(location_id)
@@ -48,6 +49,7 @@ CREATE TABLE club_members (
     postal_code CHAR(6),
     
     PRIMARY KEY(club_member_id)
+    -- CONSTRAINT CHK_Member_Age CHECK (birthdate >= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)) AND birthdate <= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)))
 );
 
 CREATE TABLE family_members (
@@ -78,9 +80,8 @@ CREATE TABLE personnels (
     province VARCHAR(20),
     postal_code CHAR(6),
     email_address VARCHAR(40),
-    personnel_role VARCHAR(40),
+    personnel_role VARCHAR(40) CHECK (personnel_role IN ("General Manager", "Trainer", "Administrator", "Other")),
     mandate VARCHAR(20),
-    
     PRIMARY KEY(SSN)
 );
 
@@ -191,3 +192,102 @@ CREATE TABLE email_logs(
     email_subject VARCHAR(100),
     body VARCHAR(100)
 );
+
+CREATE TABLE secondary_family_members(
+	family_SSN CHAR(9),
+    club_member_id INT,
+    relation VARCHAR(20),
+    
+    PRIMARY KEY(family_SSN, club_member_id),
+    FOREIGN KEY(family_SSN) REFERENCES family_members(SSN),
+    FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id)
+);
+
+-- Checking if there is only one head location
+delimiter $$
+CREATE TRIGGER check_location_head_unique BEFORE INSERT ON locations
+FOR EACH ROW
+BEGIN
+	IF NEW.location_type = "Head" AND "Head" IN (SELECT location_type FROM locations) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Cannot have 2 head branches';
+	END IF;
+END;
+$$
+
+-- Chcking if there is only one gm per location
+CREATE TRIGGER check_one_general_manager_per_location BEFORE INSERT ON personnels_in_locations
+FOR EACH ROW
+BEGIN
+	IF (SELECT p.SSN FROM personnels p
+    INNER JOIN personnels_in_locations pl ON pl.personnel_SSN = p.SSN
+    INNER JOIN locations l ON l.location_id = pl.location_id
+    WHERE p.personnel_role = "General Manager" AND l.location_id = NEW.location_id ) > 0 AND (SELECT COUNT(*) FROM personnels p WHERE p.personnel_role = "General Manager" AND p.SSN = NEW.personnel_SSN) > 0 THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Cannot have 2 general managers at one branch!';
+	END IF;
+END;
+$$
+
+-- Checking that each personnel is working at a location at one time
+CREATE TRIGGER check_location_per_personnel BEFORE INSERT ON personnels_in_locations
+FOR EACH ROW
+BEGIN
+	IF (SELECT COUNT(*) FROM personnels_in_locations pl
+    WHERE pl.personnel_SSN = NEW.personnel_SSN AND (pl.end_date IS NULL OR pl.end_date > NEW.start_date)) > 0 THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Cannot have a personnel working at 2 locations at the same time!';
+	END IF;
+END;
+$$
+
+-- Checking that each family member is associate with one location at one time
+CREATE TRIGGER check_location_per_family BEFORE INSERT ON family_enrolled_in_locations
+FOR EACH ROW
+BEGIN
+	IF (SELECT COUNT(*) FROM family_enrolled_in_locations fl
+    WHERE fl.family_SSN = NEW.family_SSN AND (fl.end_date IS NULL OR fl.end_date > NEW.start_date)) > 0 THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Cannot have a family member registered at 2 locations at the same time!';
+	END IF;
+END;
+$$
+
+-- Checking that each club member is associate with one family member at one time
+CREATE TRIGGER check_club_member_per_family BEFORE INSERT ON family_enrolled_members
+FOR EACH ROW
+BEGIN
+	IF (SELECT COUNT(*) FROM family_enrolled_members fm
+    WHERE fm.club_member_id = NEW.club_member_id AND (fm.end_date IS NULL OR fm.end_date > NEW.start_date)) > 0 THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Cannot have a club member registered with 2 family members at the same time!';
+	END IF;
+END;
+$$
+
+-- Checking that each club member is between 4 and 10 at registration
+CREATE TRIGGER check_club_member_eligibility BEFORE INSERT ON club_member_enrolled_in_locations
+FOR EACH ROW
+BEGIN
+	IF (SELECT COUNT(*) FROM club_members c
+    WHERE c.club_member_id = NEW.club_member_id
+    AND (c.birthdate >= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)) OR c.birthdate <= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)))) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Club member is not of age to register!';
+	END IF;
+END;
+$$
+
+/*
+CREATE TABLE club_member_enrolled_in_locations(
+    club_member_id INT,
+    location_id INT,
+    start_date DATE,
+    end_date DATE,
+    
+    PRIMARY KEY(club_member_id, location_id, start_date),
+    
+    FOREIGN KEY(club_member_id) REFERENCES club_members(club_member_id),
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+*/
