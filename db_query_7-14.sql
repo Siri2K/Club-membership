@@ -12,15 +12,16 @@ LEFT JOIN club_member_enrolled_in_locations cmel ON l.location_id = cmel.locatio
 GROUP BY l.location_id; #sort by loc id
 
 #from a family member get details of 2nd and all associate club members #8
-SELECT fm2.first_name AS secondary_first_name, fm2.last_name AS secondary_last_name, fm2.phone_number AS secondary_phone_number,
-       cm.club_member_id, cm.first_name AS club_member_first_name, cm.last_name AS club_member_last_name, 
-       cm.birthdate, cm.SSN AS club_member_SSN, cm.medicare, cm.phone_number AS club_member_phone_number, 
-       cm.address, cm.city, cm.province, cm.postal_code, fem.relation
-FROM family_members fm1 #Primary family member
-JOIN family_enrolled_members fem ON fm1.SSN = fem.family_SSN #for associated members
-JOIN club_members cm ON fem.club_member_id = cm.club_member_id #get details of associated members
-JOIN family_members fm2 ON fm1.SSN = fm2.SSN #get details of secondary family memeber
-WHERE fm1.SSN = '106201399'; #SSN to specify primary family member
+SELECT 
+    fm2.first_name AS secondary_first_name, fm2.last_name AS secondary_last_name, fm2.phone_number AS secondary_phone_number, cm.club_member_id, 
+    cm.first_name AS club_member_first_name, cm.last_name AS club_member_last_name, cm.birthdate, cm.SSN AS club_member_SSN,
+    cm.medicare, cm.phone_number AS club_member_phone_number, cm.address, cm.city, cm.province, cm.postal_code, sfm.relation
+FROM family_members fm1  #Primary family member
+JOIN secondary_family_members sfm ON fm1.SSN = sfm.family_SSN  #Link to secondary family member (actually a club member)
+JOIN club_members fm2 ON sfm.club_member_id = fm2.club_member_id  #details of secondary family member (actually a club member)
+JOIN family_enrolled_members fem ON fm1.SSN = fem.family_SSN  #associated members
+JOIN club_members cm ON fem.club_member_id = cm.club_member_id  #Get details of associated members
+WHERE fm1.SSN = '106201399';  #Test SSN to specify primary family member
 
 #given location and day get all teams recorded in the system #9
 SELECT s.session_time, s.address AS session_address, s.session_type, t1.team_name AS team1_name, t2.team_name AS team2_name, s.team_1_score, s.team_2_score,
