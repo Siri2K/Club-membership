@@ -1,15 +1,17 @@
+<!-- Backend code -->
 <?php 
-    require_once '../db.php';
+    include '../db.php';
 
-    //backend code
+    
     $page_title="Locations"; 
     
+    /* Queries */
     $query = "
         SELECT * FROM locations AS Locations
-        ORDER BY province,city ASC
+        ORDER BY location_id
     ";
     
-    
+    /* Results */
     $result = $conn->query($query);
 ?>
 
@@ -36,28 +38,46 @@
     <table border="1">
         <!-- Column Names -->
         <tr>
-            <th>Location Name</th>
+            <th>ID</th>
+            <th>Location Names</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Postal-code</th>
+            <th>Phone number</th>
+            <th>Web address</th>
+            <th>Type </th>
+            <th>Capacity</th>
         </tr>
 
         <!-- Populate Rows -->
         <?php while($row = $result->fetch_assoc()): ?>
             <tr>
                 <!-- Column Values -->
+                <td><?=$row['location_id']?></td>
                 <td><?=$row['location_name']?></td>
+                <td><?=$row['address']?></td>
+                <td><?=$row['city']?></td>
+                <td><?=$row['province']?></td>
+                <td><?=$row['postal_code']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['web_address']?></td>
+                <td><?=$row['location_type']?></td>
+                <td><?=$row['capacity']?></td>
 
                 <!-- Edit and Delete Button -->
                 <td>
-                    <a href="edit.php?id=<?= $row['id'] ?>">Edit</a>
-                    <a href="delete.php?id=<?= $row['id'] ?>">Delete</a>
+                    <a href="edit.php?id=<?= $row['location_id'] ?>">Edit</a>
+                    <a href="delete.php?id=<?= $row['location_id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
+        
+        <!-- Add Button -->
+        <br>
+            <a href="add.php">Add New Location</a>
+        </br>
     </table>
-    
-    <br>
-        <a href="add.php">Add New Location</a>
-    </br>
-
     </body>
 
 </html>

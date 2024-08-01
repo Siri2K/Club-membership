@@ -1,14 +1,17 @@
+<!-- Backend code -->
 <?php 
     require_once '../db.php';
 
-    //backend code
+    
     $page_title="Club Members"; 
     
+    /* Queries */
     $query = "
         SELECT * FROM club_members AS ClubMembers
-        ORDER BY club_member_id ASC
+        ORDER BY club_member_id
     ";
     
+    /* Results */
     $result = $conn->query($query);
 ?>
 
@@ -24,29 +27,45 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Club Member List</title>
+        <title>Club Members List</title>
     </head>
 
     <body>
     <!-- Title -->
-    <h1>Club Member List</h1>
+    <h1>Club Members List</h1>
 
     <!-- Table -->
     <table border="1">
         <!-- Column Names -->
         <tr>
-            <th>Membership Number</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>SSN</th>
+            <th>Medicare #</th>
+            <th>Phone #</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Postal Code</th>
+            <th>Gender</th>
         </tr>
 
         <!-- Populate Rows -->
         <?php while($row = $result->fetch_assoc()): ?>
             <tr>
                 <!-- Column Values -->
-                <td><?=$row['club_member_id']?></td>
                 <td><?=$row['first_name']?></td>
                 <td><?=$row['last_name']?></td>
+                <td><?=$row['birthdate']?></td>
+                <td><?=$row['SSN']?></td>
+                <td><?=$row['medicare']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['address']?></td>
+                <td><?=$row['city']?></td>
+                <td><?=$row['province']?></td>
+                <td><?=$row['postal_code']?></td>
+                <td><?=$row['gender']?></td>
 
                 <!-- Edit and Delete Button -->
                 <td>
@@ -55,12 +74,13 @@
                 </td>
             </tr>
         <?php endwhile; ?>
+        
+        <!-- Add Button -->
+        <br>
+            <a href="add.php">Add New Club Member</a>
+        </br>
+        
     </table>
-    
-    <br>
-        <a href="add.php">Add New Club Member</a>
-    </br>
-
     </body>
 
 </html>

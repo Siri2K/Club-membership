@@ -3,11 +3,11 @@
     require_once '../db.php';
 
     
-    $page_title="Family Members"; 
+    $page_title="Personnel"; 
     
     /* Queries */
     $query = "
-        SELECT * FROM family_members AS FamilyMembers
+        SELECT * FROM personnels AS Personnel
         ORDER BY SSN
     ";
     
@@ -27,12 +27,12 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Family Members List</title>
+        <title>Personnel List</title>
     </head>
 
     <body>
     <!-- Title -->
-    <h1>Family Members List</h1>
+    <h1>Personnel List</h1>
 
     <!-- Table -->
     <table border="1">
@@ -49,6 +49,8 @@
             <th>Province</th>
             <th>Postal Code</th>
             <th>Email Address</th>
+            <th>Personnel Role</th>
+            <th>Mandate</th>
         </tr>
 
         <!-- Populate Rows -->
@@ -66,6 +68,8 @@
                 <td><?=$row['province']?></td>
                 <td><?=$row['postal_code']?></td>
                 <td><?=$row['email_address']?></td>
+                <td><?=$row['personnel_role']?></td>
+                <td><?=$row['mandate']?></td>
 
                 <!-- Edit and Delete Button -->
                 <td>
@@ -77,7 +81,7 @@
         
         <!-- Add Button -->
         <br>
-            <a href="add.php">Add New Family Member</a>
+            <a href="add.php">Add New Personnel</a>
         </br>
         
     </table>
