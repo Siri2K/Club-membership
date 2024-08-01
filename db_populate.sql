@@ -23,7 +23,7 @@ INSERT INTO club_members (first_name, last_name, birthdate, SSN, medicare, phone
     ('Harry', 'Sanford', '2016-07-22', '763103281', '670872637', '+1 7738961236', '51823 Hane Harbor', 'Donnellyside', 'Oregon', 'Male', '284967'),
     ('Marianne', 'Rosenbaum', '2015-07-15', '403023999', '147563065', '+1 7459836994', '4916 Watsica Mews', 'South Nona', 'Mississippi', 'Male', '088012'),
     ('Manuel', 'Armstrong', '2017-07-15', '821708856', '933440329', '+1 4370295107', '185 Jonathan Meadows', 'Catonsville', 'Kansas', 'Male', '346459'),
-    ('Alicia', 'O'\'Connell', '2018-07-15', '268910184', '598742068', '+1 8713404312', '49359 Gene Extensions', 'Miramar', 'North Carolina', 'Female', '410135'),
+    ('Alicia', 'O\'Connell', '2018-07-15', '268910184', '598742068', '+1 8713404312', '49359 Gene Extensions', 'Miramar', 'North Carolina', 'Female', '410135'),
     ('Ruth', 'Treutel', '2019-07-15', '507130047', '668407810', '+1 5780823315', '421 Delphia Mill', 'Denisboro', 'Hawaii', 'Female', '324317');
 
 
@@ -36,7 +36,7 @@ INSERT INTO family_members (first_name, last_name, birthdate, SSN, medicare, pho
     ('Manuel', 'Lowe', '2024-07-15', '599284139', '724039072321', '+1 5640432401', ')7KzRL<kLV', 'Port Bellechester', 'Oklahoma', '363067', 'Manuel.Lowe28@yahoo.com'),
     ('Ada', 'Romaguera', '2024-07-15', '923930728', '507070041331', '+1 4257607116', '-Nwotp82X/', 'Port Lorineton', 'Kentucky', '955215', 'Ada_Romaguera@hotmail.com'),
     ('Pedro', 'Jenkins', '2024-07-15', '448645522', '394605998542', '+1 5955062647', '?S]_%ne?Tm', 'West Trudieborough', 'Virginia', '883548', 'Pedro74@gmail.com'),
-    ('Sophia', 'Barton', '2024-07-15', '808311919', '214528883015', '+1 4560950365', '!'\'*<cY:.g)', 'Rathborough', 'Idaho', '820469', 'Sophia_Barton@hotmail.com'),
+    ('Sophia', 'Barton', '2024-07-15', '808311919', '214528883015', '+1 4560950365', '!\'*<cY:.g)', 'Rathborough', 'Idaho', '820469', 'Sophia_Barton@hotmail.com'),
     ('Susie', 'Windler', '2024-07-15', '103354394', '672173108332', '+1 7171614682', '$S{ic0lvv&', 'Janickfield', 'Kentucky', '443654', 'Susie.Windler@yahoo.com'),
     ('Nettie', 'Anderson', '2024-07-15', '264300000', '456323792334', '+1 7675422816', 'C8!0S-r%bu', 'Jerdestad', 'California', '511306', 'Erin18@yahoo.com');
 
@@ -139,22 +139,6 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (1, 2, '2024-01-01 18:00:00', '444 West', 5, 7, 'Game'),
     (1, 2, '2024-01-12 18:20:00', '444 West', 5, 5, 'Training'),
     (1, 2, '2024-02-10 18:00:00', '444 West', 5, 5, 'Game');
-    (10, 5, '2023-11-16', null),
-    (11, 1, '2024-01-01', null), -- John Doe enrolled in location 1
-    (11, 2, '2024-02-01', null), -- John Doe enrolled in location 2
-    (11, 3, '2024-03-01', null), -- John Doe enrolled in location 3
-    (11, 4, '2024-04-01', null), -- John Doe enrolled in location 4
-    (11, 5, '2024-05-01', null), -- John Doe enrolled in location 5
-    (12, 6, '2023-01-01', '2024-01-01'), -- Jane Smith enrolled in location 6 for 1 year
-    (12, 7, '2024-01-02', null), -- Jane Smith enrolled in location 7
-    (12, 8, '2024-02-02', null), -- Jane Smith enrolled in location 8
-    (12, 9, '2024-03-02', null), -- Jane Smith enrolled in location 9
-    (12, 10, '2024-04-02', null), -- Jane Smith enrolled in location 10
-    (13, 1, '2023-04-02', null), -- Emily Johnson enrolled in location 1
-    (13, 2, '2023-05-02', null), -- Emily Johnson enrolled in location 2
-    (13, 3, '2023-06-02', null), -- Emily Johnson enrolled in location 3
-    (13, 4, '2023-07-02', null), -- Emily Johnson enrolled in location 4
-    (13, 5, '2023-08-02', null); -- Emily Johnson enrolled in location 5
 
 -- Teams table
 INSERT INTO teams (team_name, head_coach_id, gender) VALUES
@@ -175,23 +159,24 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
 
 -- Goalkeepers
+
 INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
-    (1, 1), -- Marta Fay as Goalkeeper for team 1
-    (2, 3), -- Megan Lesch as Goalkeeper for team 2
-    (3, 11); -- Oliver Jones as Goalkeeper for team 3
+    -- (1, 1), -- Marta Fay as Goalkeeper for team 1
+    -- (2, 3), -- Megan Lesch as Goalkeeper for team 2
+    (3, 10); -- Nettie Anderson as Goalkeeper for team 3
 
 -- Defenders
 INSERT INTO defenders (team_id, defender_id) VALUES
     (1, 2), -- Casey Fay as Defender for team 1
     (2, 4), -- Moses Hilpert as Defender for team 2
-    (3, 12), -- Sophia Williams as Defender for team 3
+    (3, 10), -- Nettie Anderson as Defender for team 3
     (1, 1); -- Marta Fay as Goalkeeper for team 1
 
 -- Midfielders
 INSERT INTO midfielders (team_id, midfielder_id) VALUES
     (1, 5), -- Sara Mills as Midfielder for team 1
     (2, 6), -- Harry Sanford as Midfielder for team 2
-    (3, 13), -- Liam Brown as Midfielder for team 3
+    (3, 10), -- Nettie Anderson as Midfielder for team 3
 	  (1, 1); -- Marta Fay as Goalkeeper for team 1
 
 -- Forwards
