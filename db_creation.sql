@@ -47,6 +47,7 @@ CREATE TABLE club_members (
     city VARCHAR(20),
     province VARCHAR(20),
     postal_code CHAR(6),
+    gender ENUM("Male", "Female"),
     
     PRIMARY KEY(club_member_id)
     -- CONSTRAINT CHK_Member_Age CHECK (birthdate >= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)) AND birthdate <= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)))
@@ -80,7 +81,7 @@ CREATE TABLE personnels (
     province VARCHAR(20),
     postal_code CHAR(6),
     email_address VARCHAR(40),
-    personnel_role VARCHAR(40) CHECK (personnel_role IN ("General Manager", "Trainer", "Administrator", "Other")),
+    personnel_role ENUM ("General Manager", "Trainer", "Administrator", "Other", "Intern"),
     mandate VARCHAR(20),
     PRIMARY KEY(SSN)
 );
@@ -147,6 +148,7 @@ CREATE TABLE sessions(
 
 CREATE TABLE teams(
 	team_id INT auto_increment,
+    location_id INT,
     team_name VARCHAR(100),
     head_coach_id INT,
     gender VARCHAR(20),
