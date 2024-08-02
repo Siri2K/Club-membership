@@ -1,5 +1,24 @@
 USE hoc353_1;
 
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE locations;
+TRUNCATE TABLE club_members;
+TRUNCATE TABLE club_member_enrolled_in_locations;
+TRUNCATE TABLE defenders;
+TRUNCATE TABLE email_logs;
+TRUNCATE TABLE family_enrolled_in_locations;
+TRUNCATE TABLE family_enrolled_members;
+TRUNCATE TABLE family_members;
+TRUNCATE TABLE forwards;
+TRUNCATE TABLE goalkeepers;
+TRUNCATE TABLE midfielders;
+TRUNCATE TABLE personnels;
+TRUNCATE TABLE personnels_in_locations;
+TRUNCATE TABLE secondary_family_members;
+TRUNCATE TABLE sessions;
+TRUNCATE TABLE teams;
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- Locations table
 INSERT INTO locations (location_name, address, city, province, postal_code, phone_number, web_address, location_type, capacity) VALUES
     ('Elite Soccer Minnesota', '6855 Little Port', 'South Miles', 'Minnesota', '083712', '+1 1338695823', 'https://tremendous-hammer.name', 'Head', 5),
@@ -70,7 +89,7 @@ INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end
     ('223830000', 4, '2021-06-27', '2024-03-20'), -- Ryan
     ('868725000', 4, '2016-01-12', null),
     ('389433000', 4, '2015-10-19', null),
-	  ('344799000', 1, '2020-03-21', null),
+	('344799000', 1, '2020-03-21', null),
     ('364300000', 2, '2022-04-03', null),
     ('323830000', 3, '2021-06-27', null),
     ('168725000', 4, '2016-01-12', null),
@@ -140,7 +159,7 @@ INSERT INTO midfielders (team_id, midfielder_id) VALUES
     (2, 8);
 
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
-    (1, 2, '2024-08-02 18:00:00', '444 West', 5, 7, 'Game'),
+    (1, 2, '2024-08-03 18:00:00', '444 West', 5, 7, 'Game'),
     (1, 2, '2024-01-12 18:20:00', '444 West', 5, 5, 'Training'),
     (1, 2, '2024-02-10 18:00:00', '444 West', 5, 5, 'Game');
 
@@ -155,7 +174,8 @@ INSERT INTO teams (location_id, team_name, head_coach_id, gender) VALUES
 INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
     -- (1, 1), -- Marta Fay as Goalkeeper for team 1
     -- (2, 3), -- Megan Lesch as Goalkeeper for team 2
-    (3, 9); -- Nettie Anderson as Goalkeeper for team 3
+    (3, 9), -- Nettie Anderson as Goalkeeper for team 3
+    (5, 9);
 
 -- Sessions table
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
@@ -167,7 +187,8 @@ INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score,
     (2, 3, '2024-03-01 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
     (1, 3, '2024-03-05 10:00:00', '6855 Little Port, South Miles, Minnesota', 1, 2, 'Game'),
     (2, 3, '2024-03-10 15:00:00', '6855 Little Port, South Miles, Minnesota', 2, 2, 'Game'),
-    (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
+    (3, 1, '2024-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game'),
+    (5, 1, '2022-03-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 1, 'Game');
 
 
 -- Defenders
