@@ -36,32 +36,24 @@ WITH winning_teams AS (
 			END = t.team_id
 		)
 	WHERE
-		s.team_1_score != s.team_2_score  -- Exclude ties
-)
-/*,
-losing_teams AS
-(
-SELECT
+		s.team_1_score != s.team_2_score AND
+        t.team_id NOT IN
+        (SELECT
         CASE
             WHEN s.team_1_score < s.team_2_score THEN s.team_1_id
             ELSE s.team_2_id
-        END AS losing_team_id,
-        CASE
-            WHEN s.team_1_score > s.team_2_score THEN s.team_1_score
-            ELSE s.team_2_score
-        END AS losing_score, t.location_id AS location_id
+        END AS losing_team_id
 	FROM
 		sessions s
-	JOIN teams t ON ( -- To only include winning teams
+	JOIN teams t ON ( -- To only include losing teams
 			CASE
 				WHEN s.team_1_score < s.team_2_score THEN s.team_1_id
 				ELSE s.team_2_id
 			END = t.team_id
 		)
 	WHERE
-		s.team_1_score != s.team_2_score  -- Exclude ties
-)
-*/
+		s.team_1_score != s.team_2_score  -- Exclude ties)-- Exclude ties
+))
 SELECT cm.club_member_id, cm.first_name, cm.last_name,  ROUND(DATEDIFF(CURDATE(), cm.birthdate) /360) as age, cm.phone_number, cm.address, l.location_name
 FROM  winning_teams wt
 JOIN goalkeepers g ON wt.winning_team_id = g.team_id
@@ -120,3 +112,60 @@ ORDER BY l.location_name, p.personnel_role, p.first_name, p.last_name;
 --     - check_member_gender_defender
 --     - check_member_gender_midfielder
 --     - check_member_gender_forward
+
+
+-- Answer to Question 20)
+-- The following are queries that purposefully fail in order to demonstrate the integrity of the requirements.
+-- Make sure to run the db_populate script first as this relies on the data there to check the integrity.
+
+-- Checking that only one location can be the head location (a head location is already present):
+INSERT INTO locations (location_name, address, city, province, postal_code, phone_number, web_address, location_type, capacity) VALUES
+    ('Elite Soccer Minnesota', '6855 Little Port', 'South Miles', 'Minnesota', '083712', '+1 1338695823', 'https://tremendous-hammer.name', 'Head', 5);
+    
+-- There can only be one general manager per location:
+INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end_date) VALUES
+    ('223830000', 1, '2024-05-05', null);
+    
+-- Each personnel having a unique medicare # and SSN is ensure in the table definition
+-- Having only one role at a time is ensured by the fact that the role field must be only one of General Manager, Administrator, trainer, other (by enum)
+
+-- Showing that a personnel can only operate at one location at a time:
+INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end_date) VALUES
+    ('350857000', 2, '2024-05-05', null);
+    
+-- Showing family members can only be associated with one location at a time:
+INSERT INTO family_enrolled_in_locations (family_SSN, location_id, start_date, end_date) VALUES
+     ('106201399', 2, '2024-05-24', null);
+	
+-- Showing club members can only be associated with one primary family at a time
+INSERT INTO family_enrolled_members (family_SSN, club_member_id, start_date, end_date, relation) VALUES
+    ('163472843', 1, '2020-10-02', null, 'Mother');
+    
+-- Showing club members must between 4 and 10 years old at the time of registration
+INSERT INTO club_members (first_name, last_name, birthdate, SSN, medicare, phone_number, address, city, province, gender, postal_code) VALUES
+    ('Marta', 'Fay', '2010-07-15', '238099655', '615728201', '+1 7053077934', '12608 Reilly Streets', 'Aniyahtown', 'Maryland', 'Male', '891140');
+    
+-- The constraint of each session needing 2 teams is ensured by the id's of both being in the primary key of the table
+
+-- Showing that all players on a team must be associate with the same location:
+-- (this is the same for the other positions as well)
+INSERT INTO forwards (team_id, forward_id) VALUES
+    (4, 7);
+INSERT INTO midfielders (team_id, midfielder_id) VALUES
+    (3, 6);
+INSERT INTO defenders (team_id, defender_id) VALUES
+    (4, 2);
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+	(3, 3);
+
+-- Showing that each team must have at least one goalkeeper:
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (1, 6, '2024-09-02 18:00:00', '444 West', 5, 7, 'Game');
+
+-- Shwoing that there must be at least a 3 hour difference between two formations for a member:
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (1, 3, '2024-08-02 19:00:00', '444 West', 5, 7, 'Game');
+    
+-- Showing gender must be the same for all members in a team:
+INSERT INTO forwards (team_id, forward_id) VALUES
+    (4, 9);
