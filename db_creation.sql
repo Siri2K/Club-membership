@@ -360,7 +360,7 @@ FOR EACH ROW
 BEGIN
     IF (SELECT t.location_id FROM teams t 
     WHERE t.team_id = NEW.team_id) <> 
-    (SELECT *FROM club_member_enrolled_in_locations cl
+    (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
     INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
     WHERE c.club_member_id = NEW.forward_id AND cl.end_date IS NULL) THEN
         SIGNAL SQLSTATE '45000'
