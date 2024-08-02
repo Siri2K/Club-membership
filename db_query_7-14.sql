@@ -67,7 +67,7 @@ FROM sessions s
 JOIN teams t1 ON s.team_1_id = t1.team_id #team 1 id
 JOIN teams t2 ON s.team_2_id = t2.team_id #team 2 id
 WHERE s.address = '6855 Little Port, South Miles, Minnesota' #Sample Data 
-AND s.session_time = '2024-04-09' #Sample Date
+AND CAST(s.session_time AS DATE) = '2024-04-09' #Sample Date
 ORDER BY s.session_time ASC;
 
 #Currently active club members w at least four different locations and are members for at most two years. #10

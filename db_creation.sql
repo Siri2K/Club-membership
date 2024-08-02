@@ -223,7 +223,7 @@ BEGIN
 	IF (SELECT p.SSN FROM personnels p
     INNER JOIN personnels_in_locations pl ON pl.personnel_SSN = p.SSN
     INNER JOIN locations l ON l.location_id = pl.location_id
-    WHERE p.personnel_role = "General Manager" AND l.location_id = NEW.location_id ) > 0 AND (SELECT COUNT(*) FROM personnels p WHERE p.personnel_role = "General Manager" AND p.SSN = NEW.personnel_SSN) > 0 THEN
+    WHERE p.personnel_role = "General Manager" AND l.location_id = NEW.location_id AND pl.end_date IS NULL) > 0 AND (SELECT COUNT(*) FROM personnels p WHERE p.personnel_role = "General Manager" AND p.SSN = NEW.personnel_SSN) > 0 THEN
 		SIGNAL SQLSTATE '45000'
 		SET MESSAGE_TEXT = 'ERROR! Cannot have 2 general managers at one branch!';
 	END IF;

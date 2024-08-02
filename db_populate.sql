@@ -75,10 +75,15 @@ INSERT INTO personnels (first_name, last_name, birthdate, SSN, medicare, phone_n
     ('Nile', 'Anderson', '2005-06-11', '364300000', '26954750', '+1 3708554543', '539 Cecil Course', 'New Titoton', 'ON', '901656', 'Nettie.Anderson@gmail.com', 'Intern', 'Volunteer'),
     ('Andy', 'Ryan', '2006-05-19', '323830000', '03844426', '+1 3944889177', '11027 Bauch Mills', 'Gerardoboro', 'ON', '526589', 'Everett.Ryan@hotmail.com', 'Intern', 'Volunteer'),
     ('Samantha', 'Mohr-Bode', '1998-08-10', '168725000', '15140472', '+1 7649246672', '99529 Yundt Pine', 'Moline', 'ON', '949866', 'Karla_Mohr-Bode@hotmail.com', 'Intern', 'Volunteer'),
-    ('Derek', 'Orn', '2000-12-07', '589433000', '38213237', '+1 6980761271', '28678 Izaiah Ways', 'Fort Emelia', 'ON', '230329', 'Dallas42@hotmail.com', 'Intern', 'Volunteer');
+    ('Derek', 'Orn', '2000-12-07', '589433000', '38213237', '+1 6980761271', '28678 Izaiah Ways', 'Fort Emelia', 'ON', '230329', 'Dallas42@hotmail.com', 'Intern', 'Volunteer'),
+    ('Jordan', 'Michael', '2006-05-19', '223835000', '13344426', '+1 3944889177', '11027 Bauch Mills', 'Gerardoboro', 'ON', '526589', 'Everett.Ryan@hotmail.com', 'General Manager', 'Salaried');
 
 -- Personnels in locations table
 INSERT INTO personnels_in_locations (personnel_SSN, location_id, start_date, end_date) VALUES
+	('223830000', 1, '2014-06-27', '2017-03-20'),
+    ('944799000', 1, '2020-05-04', '2021-03-20'),
+    ('320150000', 1, '2021-04-25', '2022-02-20'), 
+    ('223835000', 1, '2022-04-25', '2023-02-20'), 
     ('350857000', 1, '2024-05-05', null),
     ('724579000', 1, '2024-05-05', null),
     ('142767000', 2, '2024-01-30', '2024-04-24'),
@@ -179,11 +184,11 @@ INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
 
 -- Sessions table
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
-    (1, 2, '2024-04-09 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 2, 'Game'),
-    (2, 1, '2024-08-06 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
-    (1, 3, '2024-02-10 10:00:00', '6855 Little Port, South Miles, Minnesota', 2, 1, 'Game'),
-    (3, 2, '2024-02-15 15:00:00', '6855 Little Port, South Miles, Minnesota', 1, 3, 'Training'),
-    (3, 1, '2024-02-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 0, 2, 'Game'),
+    (1, 2, '2024-04-09 08:00:00', '6855 Little Port, South Miles, Minnesota', 3, 2, 'Game'),
+    (2, 1, '2024-04-09 11:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (1, 3, '2024-04-09 14:00:00', '6855 Little Port, South Miles, Minnesota', 2, 1, 'Game'),
+    (3, 2, '2024-04-09 17:00:00', '6855 Little Port, South Miles, Minnesota', 1, 3, 'Training'),
+    (3, 1, '2024-04-09 20:00:00', '6855 Little Port, South Miles, Minnesota', 0, 2, 'Game'),
     (2, 3, '2024-03-01 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
     (1, 3, '2024-03-05 10:00:00', '6855 Little Port, South Miles, Minnesota', 1, 2, 'Game'),
     (2, 3, '2024-03-10 15:00:00', '6855 Little Port, South Miles, Minnesota', 2, 2, 'Game'),
@@ -323,7 +328,24 @@ INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, star
     (20, 2, '2023-07-08', null),
     (21, 2, '2023-10-08', null),
     (22, 2, '2024-05-08', null),
-    (23, 2, '2023-05-08', null)
-    
+    (23, 2, '2023-05-08', null);
+
+INSERT INTO teams (location_id, team_name, head_coach_id, gender) VALUES
+    (1, 'Another team wow', '528237260', 'Male'),
+    (1, 'Yet another team wow', '163472843', 'Male'),
+    (1, 'Yet another another team wow', '599284139', 'Male'),
+    (1, 'Yet another another another team wow', '163472843', 'Male');
+
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+    (6, 11),
+    (7, 12),
+    (8, 13),
+    (9, 14);
+
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (6, 1, '2023-04-01 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 2, 'Game'),
+    (7, 1, '2023-05-01 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 2, 'Game'),
+    (8, 1, '2023-06-01 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 2, 'Game'),
+    (9, 1, '2023-07-01 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 2, 'Game');
     
     
