@@ -108,12 +108,16 @@ INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, star
     (2, 1, '2024-06-16', null),
     (3, 1, '2024-03-08', null),
     (4, 1, '2024-06-20', null),
+    (5, 4, '2023-05-08', '2023-06-10'),
+    (5, 2, '2023-07-08', '2023-08-10'),
+    (5, 3, '2023-10-08', '2023-05-10'),
     (5, 1, '2024-05-08', null),
     (6, 1, '2024-02-01', null),
     (7, 1, '2024-12-16', null),
     (8, 1, '2023-03-26', '2024-05-14'),
     (9, 4, '2022-10-03', '2024-05-11'),
     (10, 5, '2023-11-16', null);
+    
 
 INSERT INTO teams (team_id, location_id, team_name, head_coach_id, gender) VALUES
 	(1, 1, 'Blazers', '106201399', 'Male'),
@@ -136,15 +140,15 @@ INSERT INTO midfielders (team_id, midfielder_id) VALUES
     (2, 8);
 
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
-    (1, 2, '2024-01-01 18:00:00', '444 West', 5, 7, 'Game'),
+    (1, 2, '2024-08-02 18:00:00', '444 West', 5, 7, 'Game'),
     (1, 2, '2024-01-12 18:20:00', '444 West', 5, 5, 'Training'),
     (1, 2, '2024-02-10 18:00:00', '444 West', 5, 5, 'Game');
 
 -- Teams table
 INSERT INTO teams (location_id, team_name, head_coach_id, gender) VALUES
-    (4, 'Minnesota Stars', '350857000', 'Female'),
-    (2, 'Elite Warriors', '724579000', 'Male'),
-    (4, 'Warrior Legends', '868725000', 'Female');
+    (4, 'Minnesota Stars', '448645522', 'Female'),
+    (2, 'Elite Warriors', '448645522', 'Male'),
+    (4, 'Warrior Legends', '985496281', 'Female');
 
 -- Goalkeepers
 
@@ -156,7 +160,7 @@ INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
 -- Sessions table
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
     (1, 2, '2024-04-09 10:00:00', '6855 Little Port, South Miles, Minnesota', 3, 2, 'Game'),
-    (2, 1, '2024-04-09 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
+    (2, 1, '2024-08-06 15:00:00', '6855 Little Port, South Miles, Minnesota', NULL, NULL, 'Training'),
     (1, 3, '2024-02-10 10:00:00', '6855 Little Port, South Miles, Minnesota', 2, 1, 'Game'),
     (3, 2, '2024-02-15 15:00:00', '6855 Little Port, South Miles, Minnesota', 1, 3, 'Training'),
     (3, 1, '2024-02-20 10:00:00', '6855 Little Port, South Miles, Minnesota', 0, 2, 'Game'),
@@ -175,7 +179,7 @@ INSERT INTO defenders (team_id, defender_id) VALUES
 
 -- Midfielders
 INSERT INTO midfielders (team_id, midfielder_id) VALUES
-    (1, 5), -- Sara Mills as Midfielder for team 1
+    -- (1, 5), -- Sara Mills as Midfielder for team 1
     (2, 6), -- Harry Sanford as Midfielder for team 2
     (3, 9), -- Nettie Anderson as Midfielder for team 3
 	  (1, 1); -- Marta Fay as Goalkeeper for team 1
@@ -186,3 +190,7 @@ INSERT INTO forwards (team_id, forward_id) VALUES
     (2, 8), -- Manuel Armstrong as Forward for team 2
     (3, 9), -- Manuel Armstrong as Forward for team 3 (shared player from another team)
 	  (1, 1); -- Marta Fay as Goalkeeper for team 1
+      
+INSERT INTO secondary_family_members VALUES
+	("985496281", 1, "Grandfather"),
+	("985496281", 5, "Grandfather");
