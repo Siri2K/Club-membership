@@ -189,7 +189,7 @@ CREATE TABLE forwards(
 CREATE TABLE email_logs(
 	email_date DATE,
     sender VARCHAR(100),
-    receiver VARCHAR(100),
+    receiver_ID INT,
     email_subject VARCHAR(100),
     body VARCHAR(100)
 );
