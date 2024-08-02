@@ -171,11 +171,11 @@ INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
 
 -- Showing that each team must have at least one goalkeeper:
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
-    (1, 6, '2024-09-02 18:00:00', '444 West', 5, 7, 'Game');
+    (1, 10, '2024-09-02 18:00:00', '444 West', 5, 7, 'Game');
 
 -- Shwoing that there must be at least a 3 hour difference between two formations for a member:
 INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
-    (1, 3, '2024-08-02 19:00:00', '444 West', 5, 7, 'Game');
+    (1, 3, '2024-04-01 12:00:00', '444 West', 5, 7, 'Game');
     
 -- Showing gender must be the same for all members in a team:
 INSERT INTO forwards (team_id, forward_id) VALUES
