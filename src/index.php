@@ -11,10 +11,10 @@
                 <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
                 
                 <a href="Locations" class="w3-bar-item w3-button w3-padding-large w3-white">Locations</a>
-                <a href="Personnels" class="w3-bar-item w3-button w3-padding-large w3-white">Personnels</a>
+                <a href="Personnel" class="w3-bar-item w3-button w3-padding-large w3-white">Personnels</a>
                 <a href="FamilyMembers" class="w3-bar-item w3-button w3-padding-large w3-white">Family Members</a>
                 <a href="ClubMembers" class="w3-bar-item w3-button w3-padding-large w3-white">Club Members</a>
-                <a href="Teams" class="w3-bar-item w3-button w3-padding-large w3-white">Teams</a>
+                <a href="TeamFormations" class="w3-bar-item w3-button w3-padding-large w3-white">Team Formation</a>
             </div>
         </div>
 

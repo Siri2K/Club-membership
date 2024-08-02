@@ -1,14 +1,17 @@
+<!-- Backend code -->
 <?php 
     require_once '../db.php';
 
-    //backend code
-    $page_title="Team Formations"; 
     
+    $page_title="Team Formation"; 
+    
+    /* Queries */
     $query = "
         SELECT * FROM teams AS TeamFormations
+        ORDER BY team_id
     ";
     
-    
+    /* Results */
     $result = $conn->query($query);
 ?>
 
@@ -35,28 +38,36 @@
     <table border="1">
         <!-- Column Names -->
         <tr>
+            <th>Location ID</th>
             <th>Team Name</th>
+            <th>Head Coach ID</th>
+            <th>Gender</th>
         </tr>
 
         <!-- Populate Rows -->
         <?php while($row = $result->fetch_assoc()): ?>
             <tr>
                 <!-- Column Values -->
+                <td><?=$row['location_id']?></td>
                 <td><?=$row['team_name']?></td>
+                <td><?=$row['head_coach_id']?></td>
+                <td><?=$row['gender']?></td>
+                
 
                 <!-- Edit and Delete Button -->
                 <td>
-                    <a href="edit.php?id=<?= $row['id'] ?>">Edit</a>
-                    <a href="delete.php?id=<?= $row['id'] ?>">Delete</a>
+                    <a href="edit.php?id=<?= $row['team_id'] ?>">Edit</a>
+                    <a href="delete.php?id=<?= $row['team_id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
+        
+        <!-- Add Button -->
+        <br>
+            <a href="add.php">Add New Team</a>
+        </br>
+        
     </table>
-    
-    <br>
-        <a href="add.php">Add New Team Formation</a>
-    </br>
-
     </body>
 
 </html>
