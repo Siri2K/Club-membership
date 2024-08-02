@@ -1,6 +1,7 @@
 <!-- Backend code -->
 <?php 
-    require_once '../db.php';
+    include '../db.php';
+    include '../queries.php';
 
     
     $page_title="Team Formation"; 
@@ -31,10 +32,8 @@
     </head>
 
     <body>
-    <!-- Title -->
-    <h1>Team Formation List</h1>
-
     <!-- Table -->
+    <h1>Team Formation List</h1>
     <table border="1">
         <!-- Column Names -->
         <tr>
@@ -67,6 +66,30 @@
             <a href="add.php">Add New Team</a>
         </br>
         
+    </table>
+
+    <h1>Team Formations Between Jan to March 2024</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Address</th>
+            <th># Training Session</th>
+            <th># Players training</th>
+            <th># Game Session</th>
+            <th># Players</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query11->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['address']?></td>
+                <td><?=$row['total_training_sessions']?></td>
+                <td><?=$row['total_game_sessions']?></td>
+                <td><?=$row['total_training_players']?></td>
+                <td><?=$row['total_game_players']?></td>
+            </tr>
+        <?php endwhile; ?>
     </table>
     </body>
 

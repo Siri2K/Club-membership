@@ -1,6 +1,7 @@
 <!-- Backend code -->
 <?php 
-    require_once '../db.php';
+    include '../db.php';
+    include '../queries.php';
 
     
     $page_title="Personnel"; 
@@ -31,10 +32,8 @@
     </head>
 
     <body>
-    <!-- Title -->
-    <h1>Personnel List</h1>
-
     <!-- Table -->
+    <h1>Personnel List</h1>
     <table border="1">
         <!-- Column Names -->
         <tr>
@@ -84,6 +83,55 @@
             <a href="add.php">Add New Personnel</a>
         </br>
         
+    </table>
+
+    <!-- Table -->
+    <h1>Presidential List</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query17->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['start_date_as_president']?></td>
+                <td><?=$row['end_date_as_president']?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <h1>Volunteer List</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email Address</th>
+            <th>Location</th>
+            <th>Role</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query18->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['email_address']?></td>
+                <td><?=$row['location_name']?></td>
+                <td><?=$row['personnel_role']?></td>
+            </tr>
+        <?php endwhile; ?>
     </table>
     </body>
 
