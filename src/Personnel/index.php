@@ -1,6 +1,7 @@
 <!-- Backend code -->
 <?php 
-    require_once '../db.php';
+    include '../db.php';
+    include '../queries';
 
     
     $page_title="Personnel"; 

@@ -1,6 +1,7 @@
 <!-- Backend code -->
 <?php 
     include '../db.php';
+    include '../queries';
 
     
     $page_title="Locations"; 
