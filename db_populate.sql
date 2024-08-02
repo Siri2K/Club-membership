@@ -215,3 +215,115 @@ INSERT INTO forwards (team_id, forward_id) VALUES
 INSERT INTO secondary_family_members VALUES
 	("985496281", 1, "Grandfather"),
 	("985496281", 5, "Grandfather");
+    
+    
+-- Insert secondary_family_members
+INSERT INTO secondary_family_members VALUES
+	("599284139", 1, "Cousin"),
+    ("448645522", 1, "Cousin"),
+    ("106201399", 1, "Cousin"),
+    ("103354394", 1, "Cousin");
+    
+-- Club member enrolled in locations table
+INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, start_date, end_date) VALUES
+    (1, 4, '2023-05-08', '2023-06-10'),
+    (1, 2, '2023-07-08', '2023-08-10'),
+    (1, 3, '2023-10-08', '2023-05-10'),
+    (1, 1, '2024-05-08', null),
+    (2, 4, '2023-05-08', '2023-06-10'),
+    (2, 2, '2023-07-08', '2023-08-10'),
+    (2, 3, '2023-10-08', '2023-05-10'),
+    (2, 1, '2024-05-08', null),
+    (6, 4, '2023-05-08', '2023-06-10'),
+    (6, 2, '2023-07-08', '2023-08-10'),
+    (6, 3, '2023-10-08', '2023-05-10'),
+    (6, 1, '2024-05-08', null),
+    (7, 4, '2023-05-08', '2023-06-10'),
+    (7, 2, '2023-07-08', '2023-08-10'),
+    (7, 3, '2023-10-08', '2023-05-10'),
+    (7, 1, '2024-05-08', null);
+    
+INSERT INTO sessions (team_1_id, team_2_id, session_time, address, team_1_score, team_2_score, session_type) VALUES
+    (1, 2, '2024-04-01 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 2, 'Game'),
+    (2, 1, '2023-08-07 15:00:00', '382 Bosco Gateway, Elgin, Maine', NULL, NULL, 'Game'),
+    (5, 1, '2022-03-21 10:00:00', '382 Bosco Gateway, Elgin, Maine', 3, 1, 'Game'),
+    (1, 3, '2024-02-17 10:00:00', '6993 Robert Crescent, Fort Billy, Louisiana', 2, 1, 'Game'),
+    (3, 2, '2024-02-12 15:00:00', '6993 Robert Crescent, Fort Billy, Louisiana', 1, 3, 'Game'),
+    (3, 1, '2022-02-24 10:00:00', '6993 Robert Crescent, Fort Billy, Louisiana', 0, 2, 'Game'),
+    
+    (3, 2, '2021-04-01 10:00:00', '83368 Hayes Forest, Arnefurt, Connecticut', 3, 2, 'Game'),
+    (2, 1, '2021-08-07 15:00:00', '83368 Hayes Forest, Arnefurt, Connecticut', NULL, NULL, 'Game'),
+    (3, 1, '2021-03-21 10:00:00', '83368 Hayes Forest, Arnefurt, Connecticut', 3, 1, 'Game'),
+    (5, 3, '2021-02-17 10:00:00', '953 Antonetta Squares, South Adelle, Kentucky', 2, 1, 'Game'),
+    (1, 2, '2021-02-12 15:00:00', '953 Antonetta Squares, South Adelle, Kentucky', 1, 3, 'Game'),
+    (3, 1, '2021-02-24 10:00:00', '953 Antonetta Squares, South Adelle, Kentucky', 0, 2, 'Game');
+    
+INSERT INTO club_members (first_name, last_name, birthdate, SSN, medicare, phone_number, address, city, province, gender, postal_code) VALUES
+    ('Mart', 'Fay', '2018-07-15', '138099655', '115728201', '+1 4053077934', '12608 Reilly Streets', 'Aniyahtown', 'Maryland', 'Male', '891140'),
+    ('Cake', 'Fay', '2019-07-15', '284720710', '117216211', '+1 4527077744', '12608 Reilly Streets', 'Aniyahtown', 'Maryland', 'Male', '891140'),
+    ('Megatron', 'Lesch', '2018-07-15', '389762538', '208973728', '+1 4361949947', '49332 Breitenberg Forest', 'Satterfieldport', 'Louisiana', 'Male', '232256'),  -- Added comma here
+    ('Mosses', 'Hilpert', '2017-07-12', '495576126', '125837302', '+1 5852409455', '2008 Spinka Rue', 'Schinnerfort', 'Georgia', 'Male', '052055'),
+    ('Sarah', 'Mills', '2016-07-10', '486345582', '255370333', '+1 6767013602', '81985 Heller Avenue', 'West Alexanderview', 'New Hampshire', 'Male', '639632'),
+    ('Harold', 'Sanford', '2016-07-22', '563103281', '270872637', '+1 6738961236', '51823 Hane Harbor', 'Donnellyside', 'Oregon', 'Male', '284967'),
+    ('Mary', 'Rosenbaum', '2015-07-15', '603023999', '247563065', '+1 6459836994', '4916 Watsica Mews', 'South Nona', 'Mississippi', 'Male', '088012'),
+    ('Mandeep', 'Armstrong', '2017-07-15', '721708856', '333440329', '+1 7370295107', '185 Jonathan Meadows', 'Catonsville', 'Kansas', 'Male', '346459'),
+    ('Ali', 'O\'Connell', '2018-07-15', '868910184', '398742068', '+1 7713404312', '49359 Gene Extensions', 'Miramar', 'North Carolina', 'Female', '410135'),
+    ('Rudolf', 'Treutel', '2019-07-15', '007130047', '368407810', '+1 8780823315', '421 Delphia Mill', 'Denisboro', 'Hawaii', 'Female', '324317');
+    
+INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, start_date, end_date) VALUES
+    (11, 1, '2023-05-08', null),
+    (12, 1, '2023-07-08', null),
+    (13, 1, '2023-10-08', null),
+    (14, 1, '2024-05-08', null),
+    (15, 1, '2023-05-08', null),
+    (16, 1, '2023-07-08', null),
+    (17, 1, '2023-10-08', null),
+    (18, 1, '2024-05-08', null);
+    
+INSERT INTO goalkeepers (team_id, goalkeeper_id) VALUES
+    (1, 11), 
+    (1, 12), 
+    (1, 13), 
+    (1, 14),
+    (1, 15), -- Casey Fay as Defender for team 1
+    (1, 16), -- Moses Hilpert as Defender for team 2
+    (1, 17), -- Nettie Anderson as Defender for team 3
+    (1, 18); -- Marta Fay as Goalkeeper for team 1
+
+-- Defenders
+INSERT INTO defenders (team_id, defender_id) VALUES
+    (1, 15), -- Casey Fay as Defender for team 1
+    (1, 16), -- Moses Hilpert as Defender for team 2
+    (1, 17), -- Nettie Anderson as Defender for team 3
+    (1, 18); -- Marta Fay as Goalkeeper for team 1
+
+-- Midfielders
+INSERT INTO midfielders (team_id, midfielder_id) VALUES
+    (1, 15), -- Casey Fay as Defender for team 1
+    (1, 16), -- Moses Hilpert as Defender for team 2
+    (1, 17), -- Nettie Anderson as Defender for team 3
+    (1, 18); -- Marta Fay as Goalkeeper for team 1
+
+-- Forwards
+INSERT INTO forwards (team_id, forward_id) VALUES
+    (1, 15), -- Casey Fay as Defender for team 1
+    (1, 16), -- Moses Hilpert as Defender for team 2
+    (1, 17), -- Nettie Anderson as Defender for team 3
+    (1, 18); -- Marta Fay as Goalkeeper for team 1
+    
+INSERT INTO club_members (first_name, last_name, birthdate, SSN, medicare, phone_number, address, city, province, gender, postal_code) VALUES
+    ('Bart', 'Fay', '2018-07-15', '138099656', '115728202', '+1 4053077934', '12608 Reilly Streets', 'Aniyahtown', 'Maryland', 'Male', '891140'),
+    ('Jake', 'Fay', '2019-07-15', '284720716', '117216212', '+1 4527077744', '12608 Reilly Streets', 'Aniyahtown', 'Maryland', 'Male', '891140'),
+    ('Begatron', 'Lesch', '2018-07-15', '389762536', '208973729', '+1 4361949947', '49332 Breitenberg Forest', 'Satterfieldport', 'Louisiana', 'Male', '232256'),  -- Added comma here
+    ('Wosses', 'Hilpert', '2017-07-12', '495576127', '125837303', '+1 5852409455', '2008 Spinka Rue', 'Schinnerfort', 'Georgia', 'Male', '052055'),
+    ('Narah', 'Mills', '2016-07-10', '486345587', '255370334', '+1 6767013602', '81985 Heller Avenue', 'West Alexanderview', 'New Hampshire', 'Male', '639632');
+   
+INSERT INTO club_member_enrolled_in_locations (club_member_id, location_id, start_date, end_date) VALUES
+    (19, 2, '2023-05-08', null),
+    (20, 2, '2023-07-08', null),
+    (21, 2, '2023-10-08', null),
+    (22, 2, '2024-05-08', null),
+    (23, 2, '2023-05-08', null)
+    
+    
+    
