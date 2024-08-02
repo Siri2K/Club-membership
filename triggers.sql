@@ -1,3 +1,5 @@
+-- NOTE: the actual triggers to be used are defined in the db_creation script
+
 -- To check club member age is in allowable range
 DELIMITER //
 CREATE TRIGGER check_club_member_age

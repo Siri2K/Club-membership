@@ -191,7 +191,9 @@ CREATE TABLE email_logs(
     sender VARCHAR(100),
     receiver_ID INT,
     email_subject VARCHAR(100),
-    body VARCHAR(100)
+    body VARCHAR(100),
+    PRIMARY KEY(receiver_ID, email_subject),
+    FOREIGN KEY(receiver_ID) REFERENCES club_members(club_member_id)
 );
 
 CREATE TABLE secondary_family_members(

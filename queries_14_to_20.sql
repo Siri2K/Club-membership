@@ -100,18 +100,29 @@ JOIN locations l ON l.location_id = pil.location_id
 WHERE mandate = 'Volunteer' AND p.SSN NOT IN (SELECT SSN from family_members)
 ORDER BY l.location_name, p.personnel_role, p.first_name, p.last_name;
 
--- Answer to Question 19)
--- We employed triggers quite often in this application. The reason for this is that this application requires a lot of complex logic and constraints that cannot be handled by basic SQL code. Triggers are an extremely useful tool for implementing more advanced or complex constraints. The following triggers are used in this system are:
--- 1. check_club_member_age: This trigger checks if a club member that is about to be inserted is in the allowable age range (4-10) and if so stops the insertion
--- 2. check_team_formation_conflict: This trigger checks if a new training or game session will result in any two club members being assigned two matches within 3 hours on the same day (an illegal assignment). If this occurs, the insertion of the game session is stopped
--- 3. check_personnel_location_assignment: This trigger checks to see if a personnel of the club is being assigned to a second location in personnels_in_locations. If so, the insertion is stopped.
--- 4. check_club_member_location_assignment: This trigger checks to see if a club member is being assigned to a second location in club_member_enrolled_in_locations. If so, the insertion is stopped.
--- 5. check_family_member_location_assignment: This trigger checks to see if a club member is being assigned to a second location in family_member_enrolled_in_locations. If so, the insertion is stopped.
--- 6. Triggers to disallow insertion of club members on teams of the opposite gender:
---     - check_member_gender
---     - check_member_gender_defender
---     - check_member_gender_midfielder
---     - check_member_gender_forward
+/*
+We employed triggers quite often in this application. The reason for this is that this application requires a lot of complex logic and constraints that cannot be handled by basic SQL code. Triggers are an extremely useful tool for implementing more advanced or complex constraints. The following triggers are used in this system are:
+Check_location_head_unique: This trigger checks if there is only one head location 
+Check_one_general_manager_per_location: This trigger checks if there is only one general manager per location
+Check_club_member_per_family: This trigger checks that each club member is associated with one family member at one time
+check_club_member_age: This trigger checks if a club member that is about to be inserted is in the allowable age range (4-10) and if so stops the insertion
+check_team_formation_conflict: This trigger checks if a new training or game session will result in any two club members being assigned two matches within 3 hours on the same day (an illegal assignment). If this occurs, the insertion of the game session is stopped
+check_location_per_personnel: This trigger checks to see if a personnel of the club is being assigned to a second location in personnels_in_locations. If so, the insertion is stopped.
+check_location_per_family: This trigger checks to see if a club member is being assigned to a second location in family_member_enrolled_in_locations. If so, the insertion is stopped.
+
+Triggers to check if player on a team is in team location:
+Check_goalkeeper_location
+Check_defender_location
+Check_midfielder_location
+check_forwards_location
+
+Triggers to disallow insertion of club members on teams of the opposite gender:
+Check_member_gender
+Check_member_gender_defender
+Check_member_gender_midfielder
+Check_member_gender_forward
+Check_goalie_count_teams: Trigger to check if team has at least one goalkeeper
+*/
 
 
 -- Answer to Question 20)
