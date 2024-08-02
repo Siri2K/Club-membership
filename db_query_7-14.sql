@@ -24,6 +24,7 @@ JOIN secondary_family_members sf ON cm.club_member_id = sf.club_member_id #get d
 JOIN family_members fm2 ON sf.family_SSN = fm2.SSN
 WHERE fm1.SSN = '106201399'; #SSN to specify primary family member
 
+
 #given location and day get all teams recorded in the system #9
 SELECT s.session_time, s.address AS session_address, s.session_type, t1.team_name AS team1_name, t2.team_name AS team2_name, s.team_1_score, s.team_2_score,
     (SELECT CONCAT(f.first_name, ' ', f.last_name) #coach 1
