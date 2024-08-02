@@ -50,7 +50,6 @@ CREATE TABLE club_members (
     gender ENUM("Male", "Female"),
     
     PRIMARY KEY(club_member_id)
-    -- CONSTRAINT CHK_Member_Age CHECK (birthdate >= (date_add(CURRENT_DATE(), INTERVAL -4 YEAR)) AND birthdate <= (date_add(CURRENT_DATE(), INTERVAL -10 YEAR)))
 );
 
 CREATE TABLE family_members (
@@ -313,7 +312,7 @@ BEGIN
     WHERE t.team_id = NEW.team_id) <> 
     (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
     INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
-    WHERE c.club_member_id = NEW.goalkeeper_id) THEN
+    WHERE c.club_member_id = NEW.goalkeeper_id AND cl.end_date IS NULL) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
     END IF;
@@ -329,7 +328,7 @@ BEGIN
     WHERE t.team_id = NEW.team_id) <> 
     (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
     INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
-    WHERE c.club_member_id = NEW.defender_id) THEN
+    WHERE c.club_member_id = NEW.defender_id AND cl.end_date IS NULL) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
     END IF;
@@ -345,7 +344,7 @@ BEGIN
     WHERE t.team_id = NEW.team_id) <> 
     (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
     INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
-    WHERE c.club_member_id = NEW.midfielder_id) THEN
+    WHERE c.club_member_id = NEW.midfielder_id AND cl.end_date IS NULL) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
     END IF;
@@ -361,7 +360,7 @@ BEGIN
     WHERE t.team_id = NEW.team_id) <> 
     (SELECT cl.location_id FROM club_member_enrolled_in_locations cl
     INNER JOIN club_members c ON c.club_member_id = cl.club_member_id 
-    WHERE c.club_member_id = NEW.forward_id) THEN
+    WHERE c.club_member_id = NEW.forward_id AND cl.end_date IS NULL) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A player cannot be assigned to a team at a different location from where they are registered in.';
     END IF;

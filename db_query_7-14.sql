@@ -9,7 +9,8 @@ SELECT l.location_id, l.location_name, l.address, l.city, l.province, l.postal_c
 	COUNT(cmel.club_member_id) AS number_of_club_members
 FROM locations l
 LEFT JOIN club_member_enrolled_in_locations cmel ON l.location_id = cmel.location_id
-GROUP BY l.location_id; #sort by loc id
+GROUP BY l.location_id
+ORDER BY l.province, l.city ASC; #sort by loc id
 
 #from a family member get details of 2nd and all associate club members #8
 SELECT fm2.first_name AS secondary_first_name, fm2.last_name AS secondary_last_name, fm2.phone_number AS secondary_phone_number,
@@ -19,15 +20,16 @@ SELECT fm2.first_name AS secondary_first_name, fm2.last_name AS secondary_last_n
 FROM family_members fm1 #Primary family member
 JOIN family_enrolled_members fem ON fm1.SSN = fem.family_SSN #for associated members
 JOIN club_members cm ON fem.club_member_id = cm.club_member_id #get details of associated members
-JOIN family_members fm2 ON fm1.SSN = fm2.SSN #get details of secondary family memeber
+JOIN secondary_family_members sf ON cm.club_member_id = sf.club_member_id #get details of secondary family memeber
+JOIN family_members fm2 ON sf.family_SSN = fm2.SSN
 WHERE fm1.SSN = '106201399'; #SSN to specify primary family member
 
 #given location and day get all teams recorded in the system #9
 SELECT s.session_time, s.address AS session_address, s.session_type, t1.team_name AS team1_name, t2.team_name AS team2_name, s.team_1_score, s.team_2_score,
-    (SELECT CONCAT(p.first_name, ' ', p.last_name) #coach 1
-        FROM personnels p WHERE p.SSN = t1.head_coach_id) AS coach1_name, 
-    (SELECT CONCAT(p.first_name, ' ', p.last_name) #coach 2
-        FROM personnels p WHERE p.SSN = t2.head_coach_id) AS coach2_name, 
+    (SELECT CONCAT(f.first_name, ' ', f.last_name) #coach 1
+        FROM family_members f WHERE f.SSN = t1.head_coach_id) AS coach1_name, 
+    (SELECT CONCAT(f.first_name, ' ', f.last_name) #coach 2
+        FROM family_members f WHERE f.SSN = t2.head_coach_id) AS coach2_name, 
     (SELECT GROUP_CONCAT(CONCAT(cm.first_name, ' ', cm.last_name) SEPARATOR ', ') #team 1 Goalkeeper
         FROM goalkeepers g 
         JOIN club_members cm ON g.goalkeeper_id = cm.club_member_id 
@@ -71,7 +73,7 @@ ORDER BY s.session_time ASC;
 SELECT cm.club_member_id, cm.first_name, cm.last_name
 FROM club_members cm
 JOIN club_member_enrolled_in_locations cml ON cm.club_member_id = cml.club_member_id
-WHERE cml.end_date IS NULL # currently active members
+WHERE FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) >= 4 AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) <= 10# currently active members
 AND DATEDIFF(CURDATE(), cml.start_date) <= 730 # members for at most two years (730 days)
 GROUP BY cm.club_member_id, cm.first_name, cm.last_name
 HAVING COUNT(DISTINCT cml.location_id) >= 4 # associated with at least four different locations
@@ -119,7 +121,7 @@ LEFT JOIN goalkeepers gk ON cm.club_member_id = gk.goalkeeper_id #find out if gk
 LEFT JOIN defenders df ON cm.club_member_id = df.defender_id #find if defender
 LEFT JOIN midfielders mf ON cm.club_member_id = mf.midfielder_id #mf
 LEFT JOIN forwards fw ON cm.club_member_id = fw.forward_id #f
-WHERE cml.end_date IS NULL #only include current
+WHERE cml.end_date IS NULL AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) >= 4 AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) <= 10 #only include current
     AND gk.goalkeeper_id IS NULL #players with roll
     AND df.defender_id IS NULL
     AND mf.midfielder_id IS NULL
@@ -137,7 +139,7 @@ LEFT JOIN goalkeepers gk ON cm.club_member_id = gk.goalkeeper_id
 LEFT JOIN defenders df ON cm.club_member_id = df.defender_id
 LEFT JOIN midfielders mf ON cm.club_member_id = mf.midfielder_id
 LEFT JOIN forwards fw ON cm.club_member_id = fw.forward_id
-WHERE cml.end_date IS NULL  #include currently active club members
+WHERE cml.end_date IS NULL AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) >= 4 AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) <= 10 #include currently active club members
     AND gk.goalkeeper_id IS NOT NULL #club members who are goalkeepers
     AND df.defender_id IS NULL #exclude club members who are defenders
     AND mf.midfielder_id IS NULL #exclude club members who are midfielders
@@ -157,7 +159,7 @@ JOIN goalkeepers gk ON cm.club_member_id = gk.goalkeeper_id
 JOIN defenders df ON cm.club_member_id = df.defender_id
 JOIN midfielders mf ON cm.club_member_id = mf.midfielder_id
 JOIN forwards fw ON cm.club_member_id = fw.forward_id
-WHERE cml.end_date IS NULL  #include currently active club members
+WHERE cml.end_date IS NULL  AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) >= 4 AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) <= 10 #include currently active club members
     AND EXISTS (
         SELECT 1 FROM sessions s
         WHERE (s.team_1_id = gk.team_id OR s.team_2_id = gk.team_id)
