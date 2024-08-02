@@ -125,10 +125,10 @@ $sql_query12 = "
     JOIN locations l ON cml.location_id = l.location_id
     LEFT JOIN goalkeepers gk ON cm.club_member_id = gk.goalkeeper_id 
     LEFT JOIN defenders df ON cm.club_member_id = df.defender_id 
-    LEFT JOIN midfielders mf ON cm.club_member_id = mf.midfielder_id 
+    LEFT JOIN midfielders mf ON cm.club_member_id = mf.midfielder_id
     LEFT JOIN forwards fw ON cm.club_member_id = fw.forward_id 
     WHERE cml.end_date IS NULL AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) >= 4 AND FLOOR(DATEDIFF(CURDATE(), cm.birthdate) / 365) <= 10 
-        AND gk.goalkeeper_id IS NULL 
+        AND gk.goalkeeper_id IS NULL #players with roll
         AND df.defender_id IS NULL
         AND mf.midfielder_id IS NULL
         AND fw.forward_id IS NULL

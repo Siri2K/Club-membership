@@ -1,7 +1,7 @@
 <!-- Backend code -->
 <?php 
     include '../db.php';
-    include '../queries';
+    include '../queries.php';
 
     
     $page_title="Family Members"; 
@@ -32,10 +32,8 @@
     </head>
 
     <body>
-    <!-- Title -->
-    <h1>Family Members List</h1>
-
     <!-- Table -->
+    <h1>Family Members List</h1>
     <table border="1">
         <!-- Column Names -->
         <tr>
@@ -82,6 +80,51 @@
         </br>
         
     </table>
+
+
+    <!-- Query 8  Table-->
+    <h1>Associated Family Members List</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Secondary First Name</th>
+            <th>Secondary Last Name</th>
+            <th>Secondary Phone #</th>
+            <th>Club Member ID</th>
+            <th>Club Member First Name</th>
+            <th>Club Member Last Name</th>
+            <th>Club member Date of Birth</th>
+            <th>Club member SSN</th>
+            <th>Club member Medicare</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Postal Code</th>
+            <th>Relation</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query8->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['secondary_first_name']?></td>
+                <td><?=$row['secondary_last_name']?></td>
+                <td><?=$row['secondary_phone_number']?></td>
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['club_member_last_name']?></td>
+                <td><?=$row['birthdate']?></td>
+                <td><?=$row['club_member_SSN']?></td>
+                <td><?=$row['medicare']?></td>
+                <td><?=$row['club_member_phone_number']?></td>
+                <td><?=$row['address']?></td>
+                <td><?=$row['city']?></td>
+                <td><?=$row['province']?></td>
+                <td><?=$row['postal_code']?></td>
+                <td><?=$row['relation']?></td>
+            </tr>
+        <?php endwhile;?>
+    </table>
+
     </body>
 
 </html>

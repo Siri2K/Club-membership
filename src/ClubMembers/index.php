@@ -1,7 +1,7 @@
 <!-- Backend code -->
 <?php 
     include '../db.php';
-    include '../queries';
+    include '../queries.php';
 
     
     $page_title="Club Members"; 
@@ -32,10 +32,8 @@
     </head>
 
     <body>
-    <!-- Title -->
+    <!-- Active Club Members -->
     <h1>Club Members List</h1>
-
-    <!-- Table -->
     <table border="1">
         <!-- Column Names -->
         <tr>
@@ -81,6 +79,133 @@
             <a href="add.php">Add New Club Member</a>
         </br>
         
+    </table>
+
+    <!-- Table -->
+    <h1>Active Club Members List</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Club Member ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query10->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <h1>Active and Unassigned Club Members List</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Club Member ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>Location</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query12->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['age']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['location_name']?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <h1>Goal Keepers</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Club Member ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>Location</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query13->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['age']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['location_name']?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <h1>Members that done all roles</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Club Member ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>Location</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query14->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['age']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['location_name']?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <h1>Club Members who have not lost</h1>
+    <table border="1">
+        <!-- Column Names -->
+        <tr>
+            <th>Club Member ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Location</th>
+        </tr>
+
+        <!-- Populate Rows -->
+        <?php while($row = $result_query16_1->fetch_assoc()): ?>
+            <tr>
+                <!-- Column Values -->
+                <td><?=$row['club_member_id']?></td>
+                <td><?=$row['first_name']?></td>
+                <td><?=$row['last_name']?></td>
+                <td><?=$row['age']?></td>
+                <td><?=$row['phone_number']?></td>
+                <td><?=$row['address']?></td>
+                <td><?=$row['location_name']?></td>
+            </tr>
+        <?php endwhile; ?>
     </table>
     </body>
 
