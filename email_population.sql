@@ -65,7 +65,7 @@ BEGIN
         IF done THEN
 			LEAVE read_loop;
 		END IF;
-        SET email_subject = CONCAT(team_name, " ", session_time, " ", session_type);
+        SET email_subject = CONCAT(team_name, " ", session_time, " ", session_type, " ", team_role);
         SET body = SUBSTRING(CONCAT("Member: ", member_first_name, " ", member_last_name, " ", team_role, " ", 
         "Head Coach: ", head_coach_first_name, " ", head_coach_last_name, " ", head_coach_email, " ", session_type, " at: ", location_address), 1, 100);
         
