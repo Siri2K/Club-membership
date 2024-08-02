@@ -194,7 +194,7 @@
         </tr>
 
         <!-- Populate Rows -->
-        <?php while($row = $result_query16_1->fetch_assoc()): ?>
+        <?php while($row = $result_query16->fetch_assoc()): ?>
             <tr>
                 <!-- Column Values -->
                 <td><?=$row['club_member_id']?></td>

@@ -5,7 +5,7 @@ SELECT l.location_id, l.location_name, l.address, l.city, l.province, l.postal_c
 	(SELECT CONCAT(p.first_name, ' ', p.last_name) #For gm
 	FROM personnels p
 	JOIN personnels_in_locations pil ON p.SSN = pil.personnel_SSN #join on ssn
-	WHERE pil.location_id = l.location_id AND p.personnel_role = 'General Manager') AS general_manager_name, #where they have title of manager
+	WHERE pil.location_id = l.location_id AND p.personnel_role = 'General Manager' AND pil.end_date IS NULL) AS general_manager_name, #where they have title of manager
 	COUNT(cmel.club_member_id) AS number_of_club_members
 FROM locations l
 LEFT JOIN club_member_enrolled_in_locations cmel ON l.location_id = cmel.location_id
